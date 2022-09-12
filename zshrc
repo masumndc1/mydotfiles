@@ -1,17 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-#export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3.8
-#export VIRTUALENVWRAPPER_VIRTUALENV=~/Library/Python/3.8/bin/virtualenv
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/khuddin/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+export ZSH="~/.oh-my-zsh"
+export git_location="~/Documents/github"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 
 source ~/.zplug/init.zsh
+zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
@@ -25,7 +23,6 @@ zplug "belak/zsh-utils"
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/fsad", from:oh-my-zsh
-zplug "junegunn/fzf", from:gh-r, as:command
 zplug "MichaelAquilina/zsh-you-should-use"
 zplug "zplug/zplug"
 # Install plugins if not installed
@@ -40,8 +37,6 @@ zplug load
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=( git
-    zsh-syntax-highlighting
-    zsh-autosuggestions
     github
     fasd
     fzf
@@ -62,18 +57,23 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
 
 # map exa commands to normal ls commands
-alias ll="exa -l -g --icons"
-alias ls="exa --icons -I -d"
-alias lt="exa --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+#alias ll="exa -l -g --icons"
+#alias ls="exa --icons -I -d"
+#alias lt="exa --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 
+# old mac does not have exa, so install lsd
+alias ll="lsd -l"
+alias ls="lsd"
+alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 # show file previews for fzf using bat
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias gig="git log --all --decorate --oneline --graph"
 alias sshmine="ssh -F ssh.config"
 alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
-alias zim="cd ~/Documents/bektigoto/zim"
-alias management="cd ~/Documents/bektigoto/management"
-alias testcoding="cd ~/Documents/bektigoto/test-coding"
+alias zim="cd $git_location/zim"
+alias management="cd $git_location/management"
+alias testcoding="cd $git_location/test-coding"
+alias mydotfiles="cd $git_location/mydotfiles"
 alias vim="/usr/local/bin/nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
