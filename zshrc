@@ -68,12 +68,6 @@ alias lt="exa --tree --icons -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoi
 
 # show file previews for fzf using bat
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
-alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
-alias dev="cd ~/Documents/csc_dev/"
-alias project="cd ~/Documents/tasks/project/"
-alias acb="cd ~/Documents/csc_dev/ansible-cloud-bootstrap/"
-alias aka="cd ~/Documents/csc_dev/ansible-kaj-admin/"
 alias gig="git log --all --decorate --oneline --graph"
 alias sshmine="ssh -F ssh.config"
 alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
