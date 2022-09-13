@@ -74,7 +74,6 @@ alias zim="cd $git_location/zim"
 alias management="cd $git_location/management"
 alias testcoding="cd $git_location/test-coding"
 alias mydotfiles="cd $git_location/mydotfiles"
-alias vim="/usr/local/bin/nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
