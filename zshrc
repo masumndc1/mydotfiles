@@ -11,7 +11,7 @@ export git_location="~/Documents/github"
 source ~/.zplug/init.zsh
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zaw"
