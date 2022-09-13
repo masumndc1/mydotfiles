@@ -5,6 +5,7 @@ set shiftwidth=4
 set wrapmargin=0
 set wrap
 set linebreak
+set relativenumber
 set number
 set tabstop=4
 set expandtab
