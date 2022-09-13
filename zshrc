@@ -36,6 +36,10 @@ if [[ -f ~/.zplug/init.zsh ]]; then
             fi
     fi
     zplug load
+
+else
+    curl -sL --proto-redir -all,https \
+        https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 
 # Add wisely, as too many plugins slow down shell startup.
@@ -59,7 +63,9 @@ if [[ `uname` == "Darwin" ]]; then
 fi
 
 
-if [[ -f ~/.fzf/bin/fzf ]]; then
+if [[ -f /opt/local/bin/fzf ]]; then
+    source /opt/local/share/fzf/shell/key-bindings.zsh
+    source /opt/local/share/fzf/shell/completion.zsh
     export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
     export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
     export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
