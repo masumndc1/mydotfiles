@@ -4,10 +4,13 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
-if [[ -f ~/.oh-my-zsh ]]; then
+if [[ -d ~/.oh-my-zsh ]]; then
     export ZSH="~/.oh-my-zsh"
     source $ZSH/oh-my-zsh.sh
     # export LANG=en_US.UTF-8
+else
+    sh -c "$(curl -fsSL \
+        https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 if [[ -f ~/.zplug/init.zsh ]]; then
@@ -37,20 +40,19 @@ if [[ -f ~/.zplug/init.zsh ]]; then
     fi
     zplug load
 
+    plugins=( git
+        github
+        fasd
+        z
+        colorize
+        colored-man-pages
+    )
 else
     curl -sL --proto-redir -all,https \
         https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( git
-    github
-    fasd
-    fzf
-    z
-    colorize
-    colored-man-pages
-)
 
 if [[ `uname` == "Darwin" ]]; then
     if [[ -f /opt/local/bin/lsd ]]; then
@@ -62,7 +64,6 @@ if [[ `uname` == "Darwin" ]]; then
     fi
 fi
 
-
 if [[ -f /opt/local/bin/fzf ]]; then
     source /opt/local/share/fzf/shell/key-bindings.zsh
     source /opt/local/share/fzf/shell/completion.zsh
@@ -71,7 +72,9 @@ if [[ -f /opt/local/bin/fzf ]]; then
     export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
     alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 else
-    sudo port install fzf ripgrep
+    if [[ `uname` == "Darwin" ]]; then
+        sudo port install fzf ripgrep
+    fi
 fi
 
 if [[ `hostname` == "mac-MBP-2.lan" ]]; then
