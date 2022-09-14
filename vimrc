@@ -5,7 +5,6 @@ set shiftwidth=4
 set wrapmargin=0
 set wrap
 set linebreak
-set relativenumber
 set number
 set tabstop=4
 set expandtab
@@ -108,7 +107,6 @@ map <C-t> :NERDTreeToggle<CR>
 map <C-g> :TagbarToggle<CR>
 map <C-s> :set list!<CR>
 
-let g:python3_host_prog = '/usr/local/bin/python3'
 let g:gruvbox_contrast_dark = 'hard'
 let g:semshi#filetypes = ['python']
 let g:deoplete#enable_at_startup = 1
@@ -162,6 +160,12 @@ endif
 if !has("nvim")
     set ttyfast                                 " smoother changes
     set term=xterm-256color
+endif
+
+if filereadable("/usr/bin/python3")
+    let g:python3_host_prog = '/usr/bin/python3'
+else
+    let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
 colorscheme gruvbox
