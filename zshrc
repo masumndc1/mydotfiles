@@ -4,7 +4,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
-if [[ -d ~/.oh-my-zsh ]]; then
+if [[ -d "~/.oh-my-zsh" ]]; then
     export ZSH="~/.oh-my-zsh"
     source $ZSH/oh-my-zsh.sh
     # export LANG=en_US.UTF-8
@@ -62,18 +62,43 @@ if [[ `uname` == "Darwin" ]]; then
     else
         sudo port install lsd
     fi
-fi
 
-if [[ -f /opt/local/bin/fzf ]]; then
-    source /opt/local/share/fzf/shell/key-bindings.zsh
-    source /opt/local/share/fzf/shell/completion.zsh
-    export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
-    export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-    export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
-    alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+    if [[ -f /opt/local/bin/fzf ]]; then
+        source /opt/local/share/fzf/shell/key-bindings.zsh
+        source /opt/local/share/fzf/shell/completion.zsh
+        export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
+        export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+        export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+        alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+    else
+        sudo port install fzf ripgrep bat
+    fi
 else
-    if [[ `uname` == "Darwin" ]]; then
-        sudo port install fzf ripgrep
+    if [[ `uname` == "Linux" ]]; then
+        if [[ -f /usr/bin/apt ]]; then
+            if [[ ! -f /snap/bin/lsd ]]; then
+                sudo snap install lsd
+            else
+                alias ll="lsd -l"
+                alias ls="lsd"
+                alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+            fi
+
+            if [[ ! -f /usr/bin/batcat ]]; then
+                sudo apt install -y bat
+            fi
+
+            if [[ ! -f /usr/bin/fzf ]]; then
+                sudo apt install -y fzf ripgrep
+            else
+                source /usr/share/doc/fzf/examples/key-bindings.zsh
+                source /usr/share/doc/fzf/examples/completion.zsh
+                export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
+                export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+                export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+                alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+            fi
+        fi
     fi
 fi
 
