@@ -75,6 +75,13 @@ if [[ `uname` == "Darwin" ]]; then
     fi
 else
     if [[ `uname` == "Linux" ]]; then
+        if [[ -f /usr/bin/zypper ]]; then
+            alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+            alias ll="exa --icons -l"
+            alias ls="exa --icons"
+            alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+        fi
+
         if [[ -f /usr/bin/apt ]]; then
             if [[ ! -f /snap/bin/lsd ]]; then
                 sudo snap install lsd
@@ -105,6 +112,8 @@ fi
 if [[ `hostname` == "mac-MBP-2.lan" ]]; then
     export git_location="~/Documents/github"
 elif [[ `hostname` == "masum-K42JZ" ]]; then
+    export git_location="~/Documents/github"
+elif [[ `hostname` == "masum-K42JZ.lan" ]]; then
     export git_location="~/Documents/github"
 fi
 
