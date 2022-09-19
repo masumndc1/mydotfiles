@@ -5,9 +5,11 @@ import shutil
 import sys
 
 from subprocess import check_call as call
+from shutil import copy as cp
 
 home = os.path.expanduser('~')
 pkgs = {'bat','fzf','ripgrep','exa'}
+
 
 def set_zsh(file):
 
@@ -15,10 +17,10 @@ def set_zsh(file):
     backup_zsh_conf = home + "/." + file + ".bk"
 
     if os.path.exists(location_zsh_conf):
-        shutil.copy(location_zsh_conf, backup_zsh_conf)
-        shutil.copy(file, location_zsh_conf)
+        cp(location_zsh_conf, backup_zsh_conf)
+        cp(file, location_zsh_conf)
     else:
-        shutil.copy(file, location_zsh_conf)
+        cp(file, location_zsh_conf)
 
 
 def install_pkgs():
