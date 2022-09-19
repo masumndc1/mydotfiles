@@ -4,9 +4,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
-if [[ -d "~/.oh-my-zsh" ]]; then
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
     export ZSH="~/.oh-my-zsh"
-    source $ZSH/oh-my-zsh.sh
     # export LANG=en_US.UTF-8
 else
     sh -c "$(curl -fsSL \
@@ -76,7 +75,8 @@ if [[ `uname` == "Darwin" ]]; then
 else
     if [[ `uname` == "Linux" ]]; then
         if [[ -f /usr/bin/zypper ]]; then
-            alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+            source /etc/zsh_completion.d/fzf-key-bindings
+            alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
             alias ll="exa --icons -l"
             alias ls="exa --icons"
             alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
@@ -110,11 +110,9 @@ else
 fi
 
 if [[ `hostname` == "mac-MBP-2.lan" ]]; then
-    export git_location="~/Documents/github"
+    export git_location="$HOME/Documents/github"
 elif [[ `hostname` == "masum-K42JZ" ]]; then
-    export git_location="~/Documents/github"
-elif [[ `hostname` == "masum-K42JZ.lan" ]]; then
-    export git_location="~/Documents/github"
+    export git_location="$HOME/Documents/github"
 fi
 
 alias management="cd $git_location/management"
