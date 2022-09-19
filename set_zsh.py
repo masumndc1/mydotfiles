@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import platform
 import shutil
 import sys
 
@@ -30,7 +31,13 @@ def install_pkgs():
         else:
             pkg_path = "/usr/bin/" + pkg
         if not os.path.exists(pkg_path):
-            call("sudo zypper install -y {}".format(pkg), shell=True)
+            if 'Darwin' in platform.system():
+                call("sudo port install -y {}".format(pkg), shell=True)
+            elif 'OpenSuse' in platform.system():
+                call("sudo zypper install -y {}".format(pkg), shell=True)
+            else:
+                print("[-] we dont support this OS atm")
+
 
 def install_ohmyzsh():
     if os.path.exists("/usr/bin/zypper"):
