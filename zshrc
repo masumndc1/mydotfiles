@@ -109,7 +109,7 @@ else
     fi
 fi
 
-if [[ `hostname` == "mac-MBP-2.lan" ]]; then
+if [[ `hostname` == "macs-MBP-2.lan" ]]; then
     export git_location="$HOME/Documents/github"
 elif [[ `hostname` == "masum-K42JZ" ]]; then
     export git_location="$HOME/Documents/github"
