@@ -113,6 +113,8 @@ if [[ `hostname` == "macs-MBP-2.lan" ]]; then
     export git_location="$HOME/Documents/github"
 elif [[ `hostname` == "masum-K42JZ" ]]; then
     export git_location="$HOME/Documents/github"
+elif [[ `hostname` == "apro13-HKHV2F" ]]; then
+    export git_location="$HOME/Documents/bektigoto"
 fi
 
 alias management="cd $git_location/management"
