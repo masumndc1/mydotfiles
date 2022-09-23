@@ -93,7 +93,6 @@ Plug 'andrewradev/splitjoin.vim'
 Plug 'junegunn/gv.vim'
 Plug 'numirias/semshi'
 Plug 'Shougo/deoplete.nvim',
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'whatyouhide/vim-lengthmatters'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
