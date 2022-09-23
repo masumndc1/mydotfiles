@@ -2,14 +2,13 @@
 
 import os
 import platform
-import shutil
 import sys
 
-from subprocess import check_call as call
 from shutil import copy as cp
+from subprocess import check_call as call
 
 home = os.path.expanduser('~')
-pkgs = {'bat','fzf','ripgrep','exa'}
+pkgs = {'bat', 'fzf', 'ripgrep', 'exa'}
 
 
 def set_zsh(file):
@@ -26,11 +25,19 @@ def set_zsh(file):
 
 def install_pkgs():
     for pkg in pkgs:
-        if pkg == 'ripgrep':
-            pkg_path = "/usr/bin/rg"
+        if 'Darwin' in platform.system():
+            pkg_path = "/usr/local/bin/"
         else:
-            pkg_path = "/usr/bin/" + pkg
-        if not os.path.exists(pkg_path):
+            pkg_path = "/usr/bin/"
+
+        if pkg == 'ripgrep':
+            pkg_location = pkg_path + "rg"
+        elif 'Darwin' in platform.system() and pkg == 'fzf':
+            continue
+        else:
+            pkg_location = pkg_path + pkg
+
+        if not os.path.exists(pkg_location):
             if 'Darwin' in platform.system():
                 call("sudo port install -y {}".format(pkg), shell=True)
             elif 'OpenSuse' in platform.system():
@@ -39,19 +46,10 @@ def install_pkgs():
                 print("[-] we dont support this OS atm")
 
 
-def install_ohmyzsh():
-    if os.path.exists("/usr/bin/zypper"):
-        ohmyzsh_path = home + "/.oh-my-zsh"
-        if not os.path.exists(ohmyzsh_path):
-            call("curl -fsSL \
-                https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
-                | sh)", shell=True)
-
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         file = sys.argv[1]
         set_zsh(file)
         install_pkgs()
-        install_ohmyzsh()
     else:
         print("set_zsh file_name")
