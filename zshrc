@@ -101,20 +101,31 @@ else
     fi
 fi
 
-if [[ `hostname` == "macs-MBP-2.lan" ]]; then
-    export git_location="$HOME/Documents/github"
-elif [[ `hostname` == "masum-K42JZ" ]]; then
-    export git_location="$HOME/Documents/github"
-elif [[ `hostname` == "apro13-HKHV2F" ]]; then
+export git_location="$HOME/Documents/github"
+
+if [[ `hostname` == "apro13-HKHV2F" ]]; then
     export git_location="$HOME/Documents/bektigoto"
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/devel
+    source /usr/local/bin/virtualenvwrapper.sh
+    alias sshmine="ssh -F ssh.config"
+    alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
+    alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
+    alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
+    alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
+    alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
+    alias acb="cd $HOME/Documents/csc_dev/ansible-cloud-bootstrap"
+    alias aka="cd $HOME/Documents/csc_dev/ansible-kaj-admin"
+    alias cccp="cd $HOME/Documents/csc_dev/cccp"
+    alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
+    alias tasks="cd $HOME/Documents/tasks"
+    alias project="cd $HOME/Documents/tasks/project"
 fi
 
+alias gig="git log --all --decorate --oneline --graph"
 alias management="cd $git_location/management"
 alias testcoding="cd $git_location/test-coding"
 alias mydotfiles="cd $git_location/mydotfiles"
-alias gig="git log --all --decorate --oneline --graph"
-alias sshmine="ssh -F ssh.config"
-alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
 alias zim="cd $git_location/zim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
