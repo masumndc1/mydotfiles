@@ -22,7 +22,6 @@ set ignorecase                              " ignore case when searching
 set title                                   " show title in console title bar
 set modeline                                " last lines in document sets vim mode
 set modelines=3                             " number lines checked for modelines
-set shortmess=atI                           " Abbreviate messages
 set nostartofline                           " don't jump to first character when paging
 set whichwrap=b,s,h,l,<,>,[,]               " move freely between files
 set viminfo='20,<50,s10,h
