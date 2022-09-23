@@ -4,14 +4,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    export ZSH="~/.oh-my-zsh"
-    # export LANG=en_US.UTF-8
-else
-    sh -c "$(curl -fsSL \
-        https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
 if [[ -f ~/.zplug/init.zsh ]]; then
     source ~/.zplug/init.zsh
     zplug "romkatv/powerlevel10k", as:theme, depth:1
