@@ -19,6 +19,13 @@ else
     git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
 fi
 
+if [[ -d "$HOME/.fast-syntax-highlighting" ]]; then
+    source $HOME/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+else
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting \
+        $HOME/.fast-syntax-highlighting
+fi
+
 if [[ -f ~/.zplug/init.zsh ]]; then
     source ~/.zplug/init.zsh
     zplug "romkatv/powerlevel10k", as:theme, depth:1
