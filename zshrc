@@ -13,6 +13,12 @@ else
         https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
+if [[ -d "$HOME/.fzf-tab" ]]; then
+    source $HOME/.fzf-tab/fzf-tab.plugin.zsh
+else
+    git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
+fi
+
 if [[ -f ~/.zplug/init.zsh ]]; then
     source ~/.zplug/init.zsh
     zplug "romkatv/powerlevel10k", as:theme, depth:1
