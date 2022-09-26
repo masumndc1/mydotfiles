@@ -26,8 +26,12 @@ else
         $HOME/.fast-syntax-highlighting
 fi
 
-if [[ -f ~/.zplug/init.zsh ]]; then
-    source ~/.zplug/init.zsh
+if [[ -f $HOME/.local/bin/pdm ]]; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
+
+if [[ -f $HOME/.zplug/init.zsh ]]; then
+    source $HOME/.zplug/init.zsh
     zplug "romkatv/powerlevel10k", as:theme, depth:1
     zplug "zsh-users/zsh-history-substring-search"
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
