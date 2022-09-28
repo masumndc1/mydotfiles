@@ -43,7 +43,7 @@ for pkg in pkgs:
         elif 'OpenSuse' in platform.system():
                 call("sudo zypper install -y {}".format(pkg), shell=True)
         elif 'Linux' in platform.system():
-            if 'debian' in platform.uname():
+            if 'debian' in platform.uname() or 'ubuntu' in platform.uname():
                 call("sudo apt-get install -y {}".format(pkg), shell=True)
         else:
             print("[-] we dont support this OS atm")
