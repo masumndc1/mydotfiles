@@ -96,12 +96,30 @@ else
         fi
 
         if [[ -f /usr/bin/apt ]]; then
-            if [[ ! -f /snap/bin/lsd ]]; then
-                sudo snap install lsd
+            if [[ ! -z `uname -v | grep -i debian` ]]; then
+                if [[ ! -f /usr/bin/exa ]]; then
+                    sudo apt-get install exa
+                    alias ll="exa --icons -l"
+                    alias ls="exa --icons"
+                    alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+                else
+                    alias ll="exa --icons -l"
+                    alias ls="exa --icons"
+                    alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+                fi
+            elif [[ ! -z `uname -v | grep -i ubuntu` ]]; then
+                if [[ ! -f /usr/bin/lsd ]]; then
+                    sudo snap install lsd
+                    alias ll="lsd -l"
+                    alias ls="lsd"
+                    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+                else
+                    alias ll="lsd -l"
+                    alias ls="lsd"
+                    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+                fi
             else
-                alias ll="lsd -l"
-                alias ls="lsd"
-                alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+                echo "Unknown OS"
             fi
 
             if [[ ! -f /usr/bin/batcat ]]; then
