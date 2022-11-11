@@ -107,8 +107,7 @@ map <C-t> :NERDTreeToggle<CR>
 map <C-g> :TagbarToggle<CR>
 map <C-s> :set list!<CR>
 
-let g:vimwiki_list = [{'path': '~/path/to/your/wiki',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'syntax':'markdown','ext':'.md'}]
 let g:gruvbox_contrast_dark = 'hard'
 let g:semshi#filetypes = ['python']
 let g:deoplete#enable_at_startup = 1
