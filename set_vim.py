@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import requests
 import shutil
 import sys
 
@@ -16,13 +17,11 @@ def set_vim_plug():
 
     if not os.path.exists(loc_vim_plug):
         print("[-] vim_plug is not installed")
-        retcode = call( "curl -fLo ~/.vim/autoload/plug.vim \
-            --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
-            shell = True)
-
-        if retcode:
-            print("[+] vim_plug installed")
+        r = requests.get(
+          "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        )
+        with open(loc_vim_plug, 'wb') as f:
+            f.write(r.content)
 
 
 def set_vim(file):
@@ -41,13 +40,13 @@ def install_nvim():
 
     if not os.path.exists("/usr/bin/nvim"):
         if os.path.exists("/usr/bin/zypper"):
-            call("sudo zypper install -y neovim", shell = True)
+            call("sudo zypper install -y neovim", shell=True)
         elif os.path.exists("/usr/bin/apt"):
-            call("sudo apt install -y neovim", shell = True)
+            call("sudo apt install -y neovim", shell=True)
         elif os.path.exists("/usr/bin/yum"):
-            call("sudo apt install -y yum", shell = True)
-        else:
-            print("we dont support this OS")
+            call("sudo apt install -y yum", shell=True)
+    else:
+        print("we dont support this OS")
 
 
 def symlink_nvim():
