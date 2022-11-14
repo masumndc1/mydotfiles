@@ -163,10 +163,10 @@ if !has("nvim")
     set term=xterm-256color
 endif
 
-if filereadable("/usr/bin/python3")
-    let g:python3_host_prog = '/usr/bin/python3'
-else
+if filereadable("/usr/local/bin/python3")
     let g:python3_host_prog = '/usr/local/bin/python3'
+else
+    let g:python3_host_prog = '/usr/bin/python3'
 endif
 
 colorscheme gruvbox
