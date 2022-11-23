@@ -17,6 +17,7 @@ def set_vim_plug():
 
     if not os.path.exists(loc_vim_plug):
         print("[-] vim_plug is not installed")
+        os.makedirs(os.path.dirname(loc_vim_plug), exist_ok=True)
         r = requests.get(
           "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         )
@@ -42,7 +43,11 @@ def install_nvim():
         if os.path.exists("/usr/bin/zypper"):
             call("sudo zypper install -y neovim", shell=True)
         elif os.path.exists("/usr/bin/apt"):
+            call("sudo apt-get install software-properties-common", shell=True)
+            call("sudo add-apt-repository ppa:neovim-ppa/stable", shell=True)
+            call("sudo apt update", shell=True)
             call("sudo apt install -y neovim", shell=True)
+            call("sudo apt install python3-neovim", shell=True)
         elif os.path.exists("/usr/bin/yum"):
             call("sudo apt install -y yum", shell=True)
     else:
@@ -58,6 +63,8 @@ def symlink_nvim():
     try:
         os.symlink(vim_src, vim_dst)
         os.symlink(vimrc_src, vimrc_dst)
+    except FileNotFoundError:
+        os.makedirs(vim_dst, exist_ok=True)
     except FileExistsError:
         print("[+] it has symlink already")
 
