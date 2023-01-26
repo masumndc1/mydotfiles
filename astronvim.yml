@@ -32,3 +32,5 @@
         - From inside nvim run ":Mason" to install plugins.
         - For example, ":LspInstall pyright", ":TSInstall python"
         - For debug, ":DapInstall python"
+        - More, Install: black, autoflake, flake8, gitlint,
+        - python-lsp-server, debugpy etc from ":Mason"
