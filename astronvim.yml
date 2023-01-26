@@ -1,0 +1,56 @@
+---
+- hosts: nvim
+  become: yes
+  gather_facts: yes
+  ignore_errors: yes
+
+  tasks:
+    - name: Install requisits packages
+      apt:
+        name: [ 'unzip',
+          'python3-venv',
+          'npm',
+        ]
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Copy nvim-linux64 deb package to /tmp
+      copy:
+        src: astronvim/nvim-linux64.deb
+        dest: /tmp/nvim-linux64.deb
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Make a copy of previous config files
+      copy:
+        src: ~/.config/nvim
+        dest: ~/.config/nvim.bk
+        remote_src: yes
+        validate: ls ~/.config/nvim %s
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Make a copy of previous shared config files
+      copy:
+        src: ~/.local/share/nvim
+        dest: ~/.local/share/nvim.bk
+        remote_src: yes
+        validate: ls ~/.local/share/nvim %s
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install nvim-linux64 deb package
+      apt:
+        deb: /tmp/nvim-linux64.deb
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Git clone AstroNvim
+      git:
+        repo: 'https://github.com/AstroNvim/AstroNvim'
+        dest: ~/.config/nvim
+
+    - name: Do following after installing nvim and AstroNvim
+      debug:
+        msg:
+        - Now run "nvim +PackerSync".
+        - From inside nvim run ":Mason" to install plugins.
+        - For example, ":LspInstall pyright", ":TSInstall python"
+        - For debug, ":DapInstall python"
