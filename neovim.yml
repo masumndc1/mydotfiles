@@ -1,0 +1,28 @@
+---
+- hosts: nvim
+  become: yes
+  gather_facts: yes
+  ignore_errors: yes
+
+  tasks:
+    - name: Install requisits packages
+      apt:
+        name: [ 'unzip',
+          'python3-venv',
+          'npm',
+          'git'
+        ]
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Copy nvim-linux64 deb package to /tmp
+      copy:
+        src: astronvim/nvim-linux64.deb
+        dest: /tmp/nvim-linux64.deb
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install nvim-linux64 deb package
+      apt:
+        deb: /tmp/nvim-linux64.deb
+      when: ansible_distribution == "Ubuntu"
