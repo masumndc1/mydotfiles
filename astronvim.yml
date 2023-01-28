@@ -25,6 +25,18 @@
         repo: 'https://github.com/AstroNvim/AstroNvim'
         dest: ~/.config/nvim
 
+    - name: Make an user directory
+      file:
+        path: ~/.config/nvim/lua/user
+        state: directory
+        mode: '0775'
+
+    - name: Copy nvchad statusbar config file
+      copy:
+        src: astronvim/status_bar.lua
+        dest: ~/.config/nvim/lua/user/init.lua
+        mode: '0664'
+
     - name: Do following after installing nvim and AstroNvim
       debug:
         msg:
