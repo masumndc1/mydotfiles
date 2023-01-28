@@ -139,7 +139,10 @@ return {
             -- add some padding for the percentage provider
             percentage = { padding = { right = 1 } },
             -- disable all other providers
-            ruler = false,
+            -- ruler = false,
+            ruler = {
+              provider = "%7(%l/%3L%):%2c %P"
+            },
             scrollbar = false,
             -- use no separator and define the background color
             surround = { separator = "none", color = "file_info_bg" },
