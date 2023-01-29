@@ -1,14 +1,20 @@
 ---
-- hosts: nvim
-  gather_facts: yes
-  ignore_errors: yes
+- hosts: nvim:localhost
+  gather_facts: true
+  ignore_errors: true
 
   tasks:
+    - name: Install neovim in MacOSX
+      homebrew:
+        name: neovim
+        state: present
+      when: ansible_distribution == "MacOSX"
+
     - name: Make a copy of previous config files
       copy:
         src: ~/.config/nvim
         dest: ~/.config/nvim.bk
-        remote_src: yes
+        remote_src: true
         validate: ls ~/.config/nvim %s
       when: ansible_distribution == "Ubuntu"
 
@@ -16,9 +22,15 @@
       copy:
         src: ~/.local/share/nvim
         dest: ~/.local/share/nvim.bk
-        remote_src: yes
+        remote_src: true
         validate: ls ~/.local/share/nvim %s
       when: ansible_distribution == "Ubuntu"
+
+    - name: Install Packer
+      git:
+        repo: 'https://github.com/wbthomason/packer.nvim'
+        dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+      when: ansible_distribution == "MacOSX"
 
     - name: Git clone AstroNvim
       git:
@@ -40,9 +52,9 @@
     - name: Do following after installing nvim and AstroNvim
       debug:
         msg:
-        - Now run "nvim +PackerSync".
-        - From inside nvim run ":Mason" to install plugins.
-        - For example, ":LspInstall pyright", ":TSInstall python"
-        - For debug, ":DapInstall python"
-        - More, Install: black, autoflake, flake8, gitlint,
-        - python-lsp-server, debugpy etc from ":Mason"
+          - Now run "nvim +PackerSync".
+          - From inside nvim run ":Mason" to install plugins.
+          - For example, ":LspInstall pyright", ":TSInstall python"
+          - For debug, ":DapInstall python"
+          - More, Install: black, autoflake, flake8, gitlint,
+          - python-lsp-server, debugpy etc from ":Mason"
