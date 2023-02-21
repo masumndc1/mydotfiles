@@ -26,4 +26,4 @@ jobs:
         #ansible-lint neovim.yml
     - name: Install neovim
       run: |
-        ansible-playbook neovim.yml
+        ansible-playbook neovim.yml -l localhost
