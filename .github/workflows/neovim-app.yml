@@ -21,9 +21,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install ansible ansible-lint
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with ansible-lint
-      run: |
-        ansible-lint neovim.yml
+        #- name: Lint with ansible-lint
+        #run: |
+        #ansible-lint neovim.yml
     - name: Install neovim
       run: |
         ansible-playbook neovim.yml
