@@ -187,6 +187,9 @@ lvim.plugins = {
   {
     "ellisonleao/gruvbox.nvim"
   },
+  {
+    "folke/lsp-colors.nvim"
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
