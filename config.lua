@@ -216,6 +216,13 @@ lvim.plugins = {
       terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
     })
   },
+  {
+    "akinsho/toggleterm.nvim",
+    tag = '*',
+    config = function()
+      require("toggleterm").setup()
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
