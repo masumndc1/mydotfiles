@@ -223,6 +223,14 @@ lvim.plugins = {
       require("toggleterm").setup()
     end,
   },
+  {
+    "emileferreira/nvim-strict",
+    config = function()
+      require('strict').setup({
+        excluded_filetypes = { 'text', 'markdown', 'html' },
+      })
+    end
+  }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
