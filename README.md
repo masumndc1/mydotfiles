@@ -9,3 +9,7 @@ Install and run `python3 set_zsh.py` to install zsh plugins.
 
 ## place tmux
 Install and run `python3 set_tmux.py` to install tmux plugins.
+
+## custome nvim
+Install your fav nvim framework. My fav is lunarvim.
+Place config.lua in ~/.config/config.lua
