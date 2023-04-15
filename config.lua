@@ -176,11 +176,11 @@ lvim.plugins = {
   },
   {
     "folke/noice.nvim",
-    config = function()
-    require("noice").setup({
+     config = function()
+      require("noice").setup({
       })
-    end,
-    requires = {
+     end,
+     requires = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     }
@@ -190,10 +190,10 @@ lvim.plugins = {
   },
   {
     "folke/twilight.nvim",
-    config = function()
+     config = function()
       require("twilight").setup {
-    }
-    end
+     }
+     end
   },
   {
     "mrjones2014/nvim-ts-rainbow"
@@ -213,11 +213,11 @@ lvim.plugins = {
   },
   {
     "emileferreira/nvim-strict",
-    config = function()
+     config = function()
       require('strict').setup({
         excluded_filetypes = { 'text', 'markdown', 'html' },
       })
-    end
+     end
   },
 }
 
