@@ -78,12 +78,10 @@ lvim.builtin.treesitter.ensure_installed = {
   "json",
   "lua",
   "python",
-  "typescript",
-  "tsx",
-  "css",
+  "ruby",
   "rust",
-  "java",
   "yaml",
+  "ansible"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -209,11 +207,11 @@ lvim.plugins = {
     require("tokyonight").setup({
       -- your configuration comes here
       -- The theme comes in three styles, `storm`, `moon`
-      style = "moon", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+      style = "moon", -- The theme comes in three styles, `storm`, `moon`
       --  darker variant `night` and `day`
       light_style = "night",
       -- Configure the colors used when opening a `:terminal` in Neovim
-      terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+      terminal_colors = true,
     })
   },
   {
