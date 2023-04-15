@@ -168,7 +168,13 @@ lvim.builtin.treesitter.rainbow.enable = true
 lvim.plugins = {
   {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+     requires = "nvim-tree/nvim-web-devicons",
+     config = function()
+      require("trouble").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      }
+     end
   },
   {
     "folke/noice.nvim",
@@ -182,13 +188,31 @@ lvim.plugins = {
     }
   },
   {
+    "folke/lsp-colors.nvim"
+  },
+  {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+    }
+    end
+  },
+  {
+    "folke/tokyonight.nvim",
+    require("tokyonight").setup({
+      -- The theme comes in three styles, `storm`, `moon`
+      style = "moon",
+      --  darker variant `night` and `day`
+      light_style = "night",
+      -- Configure the colors used when opening a `:terminal` in Neovim
+      terminal_colors = true,
+    })
+  },
+  {
     "mrjones2014/nvim-ts-rainbow"
   },
   {
     "ellisonleao/gruvbox.nvim"
-  },
-  {
-    "folke/lsp-colors.nvim"
   },
   {
     "ethanholz/nvim-lastplace",
@@ -204,18 +228,6 @@ lvim.plugins = {
       end,
   },
   {
-    "folke/tokyonight.nvim",
-    require("tokyonight").setup({
-      -- your configuration comes here
-      -- The theme comes in three styles, `storm`, `moon`
-      style = "moon", -- The theme comes in three styles, `storm`, `moon`
-      --  darker variant `night` and `day`
-      light_style = "night",
-      -- Configure the colors used when opening a `:terminal` in Neovim
-      terminal_colors = true,
-    })
-  },
-  {
     "akinsho/toggleterm.nvim",
     tag = '*',
     config = function()
@@ -228,15 +240,6 @@ lvim.plugins = {
       require('strict').setup({
         excluded_filetypes = { 'text', 'markdown', 'html' },
       })
-    end
-  },
-  {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-    }
     end
   },
 }
