@@ -229,7 +229,16 @@ lvim.plugins = {
         excluded_filetypes = { 'text', 'markdown', 'html' },
       })
     end
-  }
+  },
+  {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+    }
+    end
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
