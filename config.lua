@@ -212,13 +212,6 @@ lvim.plugins = {
       end,
   },
   {
-    "akinsho/toggleterm.nvim",
-    tag = '*',
-    config = function()
-      require("toggleterm").setup()
-    end,
-  },
-  {
     "emileferreira/nvim-strict",
     config = function()
       require('strict').setup({
