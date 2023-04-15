@@ -12,7 +12,6 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = false
 lvim.colorscheme = "gruvbox"
--- lvim.colorscheme = "tokyonight"
 -- lvim.colorscheme = "lunar"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -196,17 +195,6 @@ lvim.plugins = {
       require("twilight").setup {
     }
     end
-  },
-  {
-    "folke/tokyonight.nvim",
-    require("tokyonight").setup({
-      -- The theme comes in three styles, `storm`, `moon`
-      style = "moon",
-      --  darker variant `night` and `day`
-      light_style = "night",
-      -- Configure the colors used when opening a `:terminal` in Neovim
-      terminal_colors = true,
-    })
   },
   {
     "mrjones2014/nvim-ts-rainbow"
