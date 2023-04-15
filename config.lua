@@ -82,7 +82,6 @@ lvim.builtin.treesitter.ensure_installed = {
   "regex",
   "ruby",
   "rust",
-  "terraform",
   "yaml"
 }
 
