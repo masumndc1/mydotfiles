@@ -1,0 +1,15 @@
+...
+... to enable lsp for python and ruby
+... /home/ubuntu/.config/nvim/lua/custom/configs/lsconfig.lua
+
+lsconfig.pyright.setup { }
+lsconfig.solargraph.setup { }
+
+... after that run following
+...
+
+pip3 install pyright
+gem install --user-install solargraph
+
+... these two will give diagnostics as well as syntax highlighting 
+... 
