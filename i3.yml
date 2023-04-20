@@ -1,0 +1,26 @@
+---
+- hosts: i3:localhost
+  become: true
+  gather_facts: true
+  ignore_errors: true
+
+  tasks:
+    - name: Install i3 in opensuse
+      community.general.zypper:
+        name: i3
+        state: present
+        update_cache: true
+      when: ansible_distribution == "openSUSE Tumbleweed"
+
+    - name: Install i3 in debian varient
+      ansible.builtin.apt:
+        name: i3
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+    - name: Copy i3 config 
+      become: false
+      copy:
+        src: files/config
+        dest: ~/.config/i3/config
