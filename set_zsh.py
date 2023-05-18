@@ -8,7 +8,11 @@ from shutil import copy as cp
 from subprocess import check_call as call
 
 home = os.path.expanduser('~')
-pkgs = {'bat', 'fzf', 'ripgrep', 'exa', 'lsd'}
+pkgs = {'bat',
+        'fzf',
+        'ripgrep',
+        'exa',
+        'lsd'}
 
 
 def set_zsh(file):
