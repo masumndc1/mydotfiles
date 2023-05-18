@@ -1,0 +1,57 @@
+---
+- hosts: nvim:localhost
+  gather_facts: true
+  ignore_errors: true
+
+  tasks:
+    - name: Install neovim in MacOSX
+      homebrew:
+        name: neovim
+        state: present
+      when: ansible_distribution == "MacOSX"
+
+    - name: Make a copy of previous config files
+      copy:
+        src: ~/.config/nvim
+        dest: ~/.config/nvim.bk
+        remote_src: true
+        validate: ls ~/.config/nvim %s
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Make a copy of previous shared config files
+      copy:
+        src: ~/.local/share/nvim
+        dest: ~/.local/share/nvim.bk
+        remote_src: true
+        validate: ls ~/.local/share/nvim %s
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install pip and ruby
+      apt:
+        name: ['python3-pip', 'ruby3.0']
+        state: latest
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install py-right by pip
+      pip:
+        name: 'pyright'
+        state: latest
+        executable: pip3
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install solargraph by ruby-gem
+      gem:
+        name: 'solargraph'
+        state: latest
+        user_install: true
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Git clone lazyvim
+      git:
+        repo: 'https://github.com/LazyVim/starter'
+        dest: ~/.config/nvim
+
+    - name: Do following after installing nvim and lazyvim
+      debug:
+        msg:
+          - Now run "nvim"
