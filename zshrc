@@ -89,6 +89,9 @@ else
     if [[ `uname` == "Linux" ]]; then
         if [[ -f /usr/bin/zypper ]]; then
             source /etc/zsh_completion.d/fzf-key-bindings
+            export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
+            export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+            export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
             alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
             if [[ -f /usr/bin/exa ]]; then
               alias ll="exa --icons -l"
@@ -105,25 +108,17 @@ else
             if [[ ! -z `uname -v | grep -i debian` ]]; then
                 if [[ ! -f /usr/bin/exa ]]; then
                     sudo apt-get install exa
-                    alias ll="exa --icons -l"
-                    alias ls="exa --icons"
-                    alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
-                else
-                    alias ll="exa --icons -l"
-                    alias ls="exa --icons"
-                    alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
                 fi
+                alias ll="exa --icons -l"
+                alias ls="exa --icons"
+                alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
             elif [[ ! -z `uname -v | grep -i ubuntu` ]]; then
                 if [[ ! -f /usr/bin/lsd ]]; then
                     sudo snap install lsd
-                    alias ll="lsd -l"
-                    alias ls="lsd"
-                    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
-                else
-                    alias ll="lsd -l"
-                    alias ls="lsd"
-                    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
                 fi
+                alias ll="lsd -l"
+                alias ls="lsd"
+                alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
             else
                 echo "Unknown OS"
             fi
