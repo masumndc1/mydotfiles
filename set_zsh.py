@@ -8,7 +8,7 @@ from shutil import copy as cp
 from subprocess import check_call as call
 
 home = os.path.expanduser('~')
-pkgs = {'bat', 'fzf', 'ripgrep', 'exa'}
+pkgs = {'bat', 'fzf', 'ripgrep', 'exa', 'lsd'}
 
 
 def set_zsh(file):
@@ -34,13 +34,15 @@ def install_pkgs():
             pkg_location = pkg_path + "rg"
         elif 'Darwin' in platform.system() and pkg == 'fzf':
             continue
+        elif os.path.exists('/usr/bin/zypper') and pkg == 'exa':
+            continue
         else:
             pkg_location = pkg_path + pkg
 
         if not os.path.exists(pkg_location):
             if 'Darwin' in platform.system():
                 call("sudo port install -y {}".format(pkg), shell=True)
-            elif 'OpenSuse' in platform.system():
+            elif 'OpenSuse' in platform.system() or os.path.exists('/usr/bin/zypper'):
                 call("sudo zypper install -y {}".format(pkg), shell=True)
             elif 'Linux' in platform.system():
                 if 'debian' in platform.uname() or 'ubuntu' in platform.uname():

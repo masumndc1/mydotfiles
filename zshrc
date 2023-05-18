@@ -90,9 +90,15 @@ else
         if [[ -f /usr/bin/zypper ]]; then
             source /etc/zsh_completion.d/fzf-key-bindings
             alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-            alias ll="exa --icons -l"
-            alias ls="exa --icons"
-            alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+            if [[ -f /usr/bin/exa ]]; then
+              alias ll="exa --icons -l"
+              alias ls="exa --icons"
+              alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+            else
+              alias ll="lsd -l"
+              alias ls="lsd"
+              alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+            fi
         fi
 
         if [[ -f /usr/bin/apt ]]; then
