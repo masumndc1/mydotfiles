@@ -12,6 +12,7 @@ pkgs = {'bat',
         'fzf',
         'ripgrep',
         'exa',
+        'tig',
         'lsd'}
 
 
