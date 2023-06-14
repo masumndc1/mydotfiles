@@ -46,7 +46,6 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
     zplug "plugins/git", from:oh-my-zsh
     zplug "plugins/github", from:oh-my-zsh
     zplug "plugins/fsad", from:oh-my-zsh
-    zplug "MichaelAquilina/zsh-you-should-use"
     zplug "zplug/zplug"
 
     if ! zplug check --verbose ; then
@@ -145,9 +144,6 @@ export git_location="$HOME/Documents/github"
 
 if [[ `hostname` == "apro13-HKHV2F" ]]; then
     export git_location="$HOME/Documents/bektigoto"
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/devel
-    source /usr/local/bin/virtualenvwrapper.sh
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
@@ -164,9 +160,6 @@ fi
 
 if [[ `hostname` == "aair13-2QD1WG7" ]]; then
     export git_location="$HOME/Documents/bektigoto"
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/devel
-    source /usr/local/bin/virtualenvwrapper.sh
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
