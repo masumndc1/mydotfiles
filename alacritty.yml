@@ -14,7 +14,7 @@
       when: ansible_distribution == "openSUSE Tumbleweed"
 
     - name: Install alacritty in mac by mac ports
-      community.general.macports:
+      macports:
         name: ['alacritty']
         selfupdate: true
       when: ansible_distribution == "MacOSX"
