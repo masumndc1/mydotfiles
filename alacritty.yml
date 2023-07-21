@@ -6,7 +6,7 @@
 
   tasks:
     - name: Install alacritty terminal
-      community.general.zypper:
+      zypper:
         name: ['alacritty',
           'alacritty-zsh-completion']
         state: present
@@ -15,13 +15,13 @@
 
     - name: Install themese for alacritty
       become: false
-      ansible.builtin.git:
+      git:
         repo: https://github.com/alacritty/alacritty-theme
         dest: ~/.config/alacritty/themes
 
     - name: Place alacritty configuration file
       become: false
-      ansible.builtin.template:
+      template:
         src: template/alacritty.j2
         dest: ~/.config/alacritty/alacritty.yml
         mode: 0640
