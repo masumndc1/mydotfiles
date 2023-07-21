@@ -13,6 +13,12 @@
         update_cache: true
       when: ansible_distribution == "openSUSE Tumbleweed"
 
+    - name: Install alacritty in mac by mac ports
+      community.general.macports:
+        name: ['alacritty']
+        selfupdate: true
+      when: ansible_distribution == "MacOSX"
+
     - name: Install themese for alacritty
       become: false
       git:
