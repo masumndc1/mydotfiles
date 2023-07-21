@@ -1,136 +1,27 @@
-env:
-  TERM: xterm-256color
+---
+- hosts: localhost
+  become: true
+  gather_facts: true
 
-window:
-  #  dimensions:
-  columns: 0
-  lines: 0
 
-  padding:
-    x: 15
-    y: 15
+  tasks:
+    - name: Install alacritty terminal
+      community.general.zypper:
+        name: ['alacritty',
+          'alacritty-zsh-completion']
+        state: present
+        update_cache: true
+      when: ansible_distribution == "openSUSE Tumbleweed"
 
-  dynamic_padding: false
-  # Available values: full, none, transparent, buttonless
-  decorations: buttonless
-  # Windowed,Maximized,Fullscreen
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  startup_mode: Windowed
-  # Background opacity
-  # full dark : 1.0
-  opacity: 1.0
+    - name: Install themese for alacritty
+      become: false
+      ansible.builtin.git:
+        repo: https://github.com/alacritty/alacritty-theme
+        dest: ~/.config/alacritty/themes
 
-scrolling:
-  history: 10000
-  multiplier: 3
-  auto_scroll: false
-
-# Display tabs using this many cells (changes require restart)
-tabspaces: 4
-
-# When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
-
-font:
-  normal:
-    family: "TerminessTTF Nerd Font"
-    style: Medium
-
-  bold:
-    family: "TerminessTTF Nerd Font"
-    style: Bold
-
-  italic:
-    family: "TerminessTTF Nerd Font"
-    style: Italic
-
-  # Point size of the font
-  size: 18.0
-
-  # Offset is the extra space around each character. offset.y can be thought of
-  # as modifying the linespacing, and offset.x as modifying the letter spacing.
-  offset:
-    x: 0
-    y: 0
-
-  # Glyph offset determines the locations of the glyphs within their cells with
-  # the default being at the bottom. Increase the x offset to move the glyph to
-  # the right, increase the y offset to move the glyph upward.test_test1
-  glyph_offset:
-    x: 0
-    y: 1
-
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
-  AppleFontSmoothing: true
-
-debug:
-  # Display the time it takes to redraw each frame.
-  render_timer: false
-
-  # Keep the log file after quitting Alacritty.
-  persistent_logging: false
-
-  # None, Error, Warn, Info, Debug, Trace
-  log_level: Warn
-
-  # Print all received window events.
-  print_events: false
-
-  # Record all characters and escape sequences as test data.
-  ref_test: false
-
-import:
-  - ~/.config/alacritty/themes/themes/gruvbox_dark.yaml
-  # - /path/to/alacritty.yml
-
-# To completely disable the visual bell, set its duration to 0.
-visual_bell:
-  animation: EaseOutExpo
-  duration: 0
-
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
-
-mouse:
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
-
-  hide_when_typing: false
-
-hints:
-  launcher: open
-
-selection:
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
-  
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: true
-
-dynamic_title: true
-
-cursor:
-  # Block, Underline, Beam
-  style: underline
-  vi_mode_style: underline
-  custom_cursor_colors: true
-
-colors: 
-  cursor:
-    cursor: '#33ee33'
-
-# Whether the cursor should be a hollow block on window focus loss
-unfocused_hollow: true
-
-# Live config reload (changes require restart)
-live_config_reload: true
-
-shell:
-  program: /bin/zsh
-  args:
-    - --login
-  # for linux/bsd
-  # agrs: 
-  #   - --user login shell
+    - name: Place alacritty configuration file
+      become: false
+      ansible.builtin.template:
+        src: template/alacritty.j2
+        dest: ~/.config/alacritty/alacritty.yml
+        mode: 0640
