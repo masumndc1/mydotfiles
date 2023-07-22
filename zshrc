@@ -74,6 +74,10 @@ if [[ `uname` == "Darwin" ]]; then
         sudo port install lsd
     fi
 
+    if [[ -f /opt/local/bin/nvim ]]; then
+        alias vim="/opt/local/bin/nvim"
+    fi
+
     if [[ -f /opt/local/bin/fzf ]]; then
         source /opt/local/share/fzf/shell/key-bindings.zsh
         source /opt/local/share/fzf/shell/completion.zsh
