@@ -123,17 +123,11 @@ set $ws9 "9"
 set $ws10 "10"
 
 exec --no-startup-id i3-msg 'workspace $ws1 output HDMI-0'
-{% if "/usr/bin/alacritty" | exists %}
-exec --no-startup-id i3-msg 'workspace $ws2; exec alacritty -e tmux'
-{% else %}
 exec --no-startup-id i3-msg 'workspace $ws2; exec konsole -e tmux'
-{% endif %}
 exec --no-startup-id i3-msg 'workspace $ws3; exec firefox'
 exec --no-startup-id i3-msg 'workspace $ws4; exec thunar'
 exec --no-startup-id i3-msg 'workspace $ws5; exec systemsettings5'
-{% if "/usr/bin/virt-manager" | exists %}
 exec --no-startup-id i3-msg 'workspace $ws6; exec virt-manager'
-{% endif %}
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
