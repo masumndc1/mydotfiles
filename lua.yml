@@ -58,14 +58,17 @@
 
     - name: Install lua in opensuse
       zypper:
-        name: ['lua-devel',
-          'liblua5.1-0',
-          'liblua5.1-0-dev',
-          'lua-posix',
-          'lua-socket',
-          'lua-system',
-          'luarocks',
-          'lua-check' ]
+        name: ['lua51',
+          'lua51-argparse',
+          'lua51-cjson',
+          'lua51-devel',
+          'lua51-luaposix',
+          'lua51-luasocket',
+          'lua51-luafilesystem',
+          'lua51-luasystem',
+          'lua51-penlight',
+          'lua51-luarocks',
+          'lua51-luacheck' ]
         state: present
         update_cache: true
-      when: ansible_distribution == 'OpenSUSE'
+      when: ansible_distribution == "openSUSE Tumbleweed"
