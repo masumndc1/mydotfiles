@@ -1,0 +1,71 @@
+---
+- hosts: lua:localhost
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install lua in macosx
+      macports:
+        name: [ 'lua51',
+          'lua-luacheck',
+          'lua51-luarocks',
+          'lua-filesystem',
+          'lua-argparse',
+          'lua51-luaposix',
+          'lua51-ansicolor' ]
+
+        selfupdate: true
+        state: present
+        update_cache: yes
+      when: ansible_distribution == 'MacOSX'
+
+    - name: Install lua in rpm based systems
+      yum:
+        name: [ 'lua',
+          'lua-filesystem',
+          'lua-devel',
+          'lua-guestfs',
+          'lua-http',
+          'lua-json',
+          'lua-lunit',
+          'lua-lxc',
+          'lua-posix',
+          'lua-prelude',
+          'lua-readline',
+          'lua-sec',
+          'lua-socket',
+          'lua-term',
+          'luarocks'
+          ]
+        state: present
+        update_cache: true
+      when: ansible_distribution == 'CentOS'
+
+    - name: Install lua in debian based systems
+      yum:
+        name: ['lua-devel',
+          'liblua5.1-0',
+          'liblua5.1-0-dev',
+          'lua-posix',
+          'lua-socket',
+          'lua-system',
+          'luarocks',
+          'lua-check' ]
+        state: present
+        update_cache: true
+      when: ansible_distribution == 'Ubuntu' or
+            ansible_distribution == 'Debian'
+
+    - name: Install lua in opensuse
+      zypper:
+        name: ['lua-devel',
+          'liblua5.1-0',
+          'liblua5.1-0-dev',
+          'lua-posix',
+          'lua-socket',
+          'lua-system',
+          'luarocks',
+          'lua-check' ]
+        state: present
+        update_cache: true
+      when: ansible_distribution == 'OpenSUSE'
