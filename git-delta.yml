@@ -33,3 +33,16 @@
 
           [diff]
             colorMoved = default
+
+          [color]
+            ui = auto
+
+          [color "branch"]
+            current = yellow reverse
+            local = yellow
+            remote = green
+
+          [color "status"]
+            added = yellow
+            changed = green
+            untracked = cyan
