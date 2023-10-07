@@ -147,7 +147,6 @@ fi
 export git_location="$HOME/Documents/github"
 
 if [[ `hostname` == "apro13-HKHV2F" ]]; then
-    export git_location="$HOME/Documents/bektigoto"
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
@@ -163,7 +162,6 @@ if [[ `hostname` == "apro13-HKHV2F" ]]; then
 fi
 
 if [[ `hostname` == "aair13-2QD1WG7" ]]; then
-    export git_location="$HOME/Documents/bektigoto"
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"

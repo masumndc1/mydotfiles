@@ -47,10 +47,12 @@ def install_pkgs():
         if not os.path.exists(pkg_location):
             if 'Darwin' in platform.system():
                 call("sudo port install -y {}".format(pkg), shell=True)
-            elif 'OpenSuse' in platform.system() or os.path.exists('/usr/bin/zypper'):
+            elif ('OpenSuse' in platform.system() or
+                  os.path.exists('/usr/bin/zypper')):
                 call("sudo zypper install -y {}".format(pkg), shell=True)
             elif 'Linux' in platform.system():
-                if 'debian' in platform.uname() or 'ubuntu' in platform.uname():
+                if ('debian' in platform.uname() or
+                        'ubuntu' in platform.uname()):
                     call("sudo apt-get install -y {}".format(pkg), shell=True)
             else:
                 print("[-] we dont support this OS atm")
