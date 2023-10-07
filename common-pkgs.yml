@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  become: true
+  gather_facts: yes
+
+  tasks:
+    - name: Install common tools in MacOS
+      macports:
+        name: [ 'fd',
+          'zoxide'
+          ]
+        state: present
+        selfupdate: yes
+      when: ansible_distribution == "MacOSX"
