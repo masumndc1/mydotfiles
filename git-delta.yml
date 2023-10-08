@@ -17,7 +17,7 @@
         path: ~/.gitconfig
         block: |
           [core]
-            whitespace=fix       
+            whitespace=fix  -     
             pager = delta
 
           [interactive]
