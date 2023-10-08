@@ -8,6 +8,9 @@ delta_conf = """
     name = Khabir Uddin
     email = khuddin@csc.fi
 
+[pull]
+    rebase = true
+
 [core]
     pager = delta
 
@@ -24,6 +27,15 @@ delta_conf = """
 
 [diff]
     colorMoved = default
+
+[color]
+    ui = auto
+
+[log]
+    date = short
+
+[format]
+    pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
 """
 
 

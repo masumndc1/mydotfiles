@@ -12,6 +12,9 @@
           [core]
             pager = delta
 
+          [pull]
+            rebase = true
+
           [interactive]
             diffFilter = delta --color-only
 
