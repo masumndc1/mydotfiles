@@ -13,3 +13,13 @@
         state: present
         selfupdate: yes
       when: ansible_distribution == "MacOSX"
+
+    - name: Install common tools in Opensuse
+      zypper:
+        name: [ 'fd',
+          'zoxide',
+          'git-delta'
+          ]
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Suse"
