@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
 import os
+import shutil
 
 gitconfig = os.path.expanduser('~') + '/.gitconfig'
+gitconfig_themes = os.getcwd() + '/themes_gitconfig'
+themes_des = os.path.expanduser('~') + '/themes_gitconfig'
 delta_conf = """
 [user]
     name =
@@ -44,6 +47,11 @@ delta_conf = """
 """
 
 
+def setup_themesfile():
+    if os.path.exists(gitconfig_themes):
+        shutil.copy(gitconfig_themes, themes_des)
+
+
 def setup_delta(path):
     if os.path.exists(path):
         with open(path, 'r+') as f:
@@ -53,6 +61,7 @@ def setup_delta(path):
 
 
 def main():
+    setup_themesfile()
     if os.path.exists(gitconfig):
         setup_delta(gitconfig)
     else:
