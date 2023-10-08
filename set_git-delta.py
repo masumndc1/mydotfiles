@@ -5,8 +5,8 @@ import os
 gitconfig = os.path.expanduser('~') + '/.gitconfig'
 delta_conf = """
 [user]
-    name = Khabir Uddin
-    email = khuddin@csc.fi
+    name =
+    email =
 
 [pull]
     rebase = true
@@ -18,9 +18,10 @@ delta_conf = """
     diffFilter = delta --color-only
 
 [delta]
+    side-by-side = true
     navigate = true
     light = false
-    side-by-side = true
+    line-numbers = true
 
 [merge]
     conflictstyle = diff3
@@ -41,9 +42,9 @@ delta_conf = """
 
 def setup_delta(path):
     if os.path.exists(path):
-        print(path)
         with open(path, 'r+') as f:
             if delta_conf not in f.read():
+                f.seek(10)
                 f.write(delta_conf)
 
 
