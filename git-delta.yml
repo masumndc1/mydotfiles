@@ -4,7 +4,7 @@
   gather_facts: yes
 
   tasks:
-    - name: Install git-delta in MacOS
+    - name: Install git-delta in MacOS    
       macports:
         name: git-delta
         state: present
