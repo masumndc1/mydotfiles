@@ -159,7 +159,7 @@ if [[ `hostname` == "MacBook-Air.local" ]]; then
     alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
     alias tasks="cd $HOME/Documents/tasks"
     alias project="cd $HOME/Documents/tasks/project"
-    alias pyenv="source $HOME/Documents/venv/ansible/bin/activate"
+    alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
     alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
     alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
     alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"

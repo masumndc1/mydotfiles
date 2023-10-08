@@ -4,6 +4,12 @@
   gather_facts: yes
 
   tasks:
+    - name: Place gitconfig themes for delta
+      copy:
+        src: themes_gitconfig
+        dest: ~/themes_gitconfig
+        mode: 0644
+
     - name: Add settings in gitconfig file
       become: false
       blockinfile:
@@ -12,6 +18,9 @@
           [core]
             pager = delta
 
+          [include]
+            path = ~/themes_gitconfig
+
           [pull]
             rebase = true
 
@@ -19,6 +28,7 @@
             diffFilter = delta --color-only
 
           [delta]
+            features = mellow-barbet
             side-by-side = true
             navigate = true
             light = false

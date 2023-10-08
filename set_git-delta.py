@@ -14,10 +14,14 @@ delta_conf = """
 [core]
     pager = delta
 
+[include]
+  path = ~/themes_gitconfig
+
 [interactive]
     diffFilter = delta --color-only
 
 [delta]
+    features = mellow-barbet
     side-by-side = true
     navigate = true
     light = false
