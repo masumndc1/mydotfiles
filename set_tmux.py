@@ -11,7 +11,7 @@ def set_tmux(file):
     home = os.path.expanduser('~')
     location_tmux_conf = home + "/." + file
     backup_tmux_conf = home + "/." + file + ".bk"
-    tmux_plugins_location = home + "/.tmux/plugins/tpm"
+    plugin_location = home + "/.tmux/plugins/tpm"
 
     if os.path.exists(location_tmux_conf):
         shutil.copy(location_tmux_conf, backup_tmux_conf)
@@ -19,9 +19,9 @@ def set_tmux(file):
     else:
         shutil.copy(file, location_tmux_conf)
 
-    if not os.path.exists(tmux_plugins_location):
+    if not os.path.exists(plugin_location):
         subprocess.check_output(
-            f"git clone https://github.com/tmux-plugins/tmp {tmux_plugins_location}",
+            f"git clone https://github.com/tmux-plugins/tmp {plugin_location}",
             shell=True)
     else:
         print("tpm location is set")

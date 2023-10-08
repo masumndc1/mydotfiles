@@ -4,13 +4,6 @@
   gather_facts: yes
 
   tasks:
-    - name: Install git-delta in MacOS
-      macports:
-        name: git-delta
-        state: present
-        selfupdate: yes
-      when: ansible_distribution == "MacOSX"
-
     - name: Add settings in gitconfig file
       become: false
       blockinfile:
@@ -36,3 +29,9 @@
 
           [color]
             ui = auto
+
+          [log]
+            date = short
+
+          [format]
+            pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'

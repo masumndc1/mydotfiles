@@ -7,7 +7,8 @@
     - name: Install common tools in MacOS
       macports:
         name: [ 'fd',
-          'zoxide'
+          'zoxide',
+          'git-delta'
           ]
         state: present
         selfupdate: yes

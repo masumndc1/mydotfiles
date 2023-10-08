@@ -2,7 +2,6 @@
 # this is a simple python script to automate
 # git pull, commit and push to github.
 
-import os
 import shutil
 import sys
 import subprocess
