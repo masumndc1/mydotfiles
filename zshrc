@@ -146,21 +146,6 @@ fi
 
 export git_location="$HOME/Documents/github"
 
-if [[ `hostname` == "apro13-HKHV2F" ]]; then
-    alias sshmine="ssh -F ssh.config"
-    alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
-    alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
-    alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
-    alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
-    alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
-    alias acb="cd $HOME/Documents/csc_dev/ansible-cloud-bootstrap"
-    alias aka="cd $HOME/Documents/csc_dev/ansible-kaj-admin"
-    alias cccp="cd $HOME/Documents/csc_dev/cccp"
-    alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
-    alias tasks="cd $HOME/Documents/tasks"
-    alias project="cd $HOME/Documents/tasks/project"
-fi
-
 if [[ `hostname` == "aair13-2QD1WG7" ]]; then
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
@@ -174,6 +159,10 @@ if [[ `hostname` == "aair13-2QD1WG7" ]]; then
     alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
     alias tasks="cd $HOME/Documents/tasks"
     alias project="cd $HOME/Documents/tasks/project"
+else
+    alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
+    alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
+    alias testenv="source $HOME/Documents/venv/testenv/bin/activate"
 fi
 
 alias gig="git log --all --decorate --oneline --graph"
