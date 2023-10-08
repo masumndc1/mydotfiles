@@ -146,7 +146,7 @@ fi
 
 export git_location="$HOME/Documents/github"
 
-if [[ `hostname` == "aair13-2QD1WG7" ]]; then
+if [[ `hostname` == "MacBook-Air.local" ]]; then
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
@@ -159,6 +159,10 @@ if [[ `hostname` == "aair13-2QD1WG7" ]]; then
     alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
     alias tasks="cd $HOME/Documents/tasks"
     alias project="cd $HOME/Documents/tasks/project"
+    alias pyenv="source $HOME/Documents/venv/ansible/bin/activate"
+    alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
+    alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
+    alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
 else
     alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
     alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
