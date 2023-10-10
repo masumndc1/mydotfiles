@@ -146,7 +146,7 @@ fi
 
 export git_location="$HOME/Documents/github"
 
-if [[ `hostname` == "MacBook-Air.local" ]]; then
+if [[ `uname -o` == 'Darwin' ]]; then
     alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
