@@ -163,6 +163,11 @@ if [[ `uname -o` == 'Darwin' ]]; then
     alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
     alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
     alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
+
+    if [[ -f /opt/homebrew/bin/nvim ]]; then
+      alias vim="/opt/homebrew/bin/nvim"
+    fi
+
 else
     alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
     alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
