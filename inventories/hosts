@@ -1,5 +1,9 @@
 [all:children]
 nvims
+nodes
 
 [nvims]
 nvim
+
+[nodes]
+suse
