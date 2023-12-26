@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:localhost
+- hosts: nvim:nodes
   become: yes
   gather_facts: yes
   ignore_errors: yes
@@ -26,3 +26,10 @@
       apt:
         deb: /tmp/nvim-linux64.deb
       when: ansible_distribution == "Ubuntu"
+
+    - name: Install neovim in Suse
+      zypper:
+        name: ['git', 'neovim']
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Suse"
