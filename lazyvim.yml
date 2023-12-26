@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:localhost
+- hosts: nvim:localhost:nodes
   gather_facts: true
   ignore_errors: true
 
