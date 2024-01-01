@@ -9,23 +9,30 @@ from subprocess import check_call as call
 
 
 home = os.path.expanduser('~')
+vim_plug_loc = [
+    "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+]
 
 
 def set_vim_plug():
+    """
+    set vim plug
+    """
 
     loc_vim_plug = home + "/.vim/autoload/plug.vim"
 
     if not os.path.exists(loc_vim_plug):
         print("[-] vim_plug is not installed")
         os.makedirs(os.path.dirname(loc_vim_plug), exist_ok=True)
-        r = requests.get(
-          "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-        )
+        r = requests.get(vim_plug_loc[0])
         with open(loc_vim_plug, 'wb') as f:
             f.write(r.content)
 
 
 def set_vim(file):
+    """
+    backup vim config file
+    """
 
     location_vim_conf = home + "/." + file
     backup_vim_conf = home + "/." + file + ".bk"
@@ -38,6 +45,9 @@ def set_vim(file):
 
 
 def install_nvim():
+    """
+    Install vim
+    """
 
     if not os.path.exists("/usr/bin/nvim"):
         if os.path.exists("/usr/bin/zypper"):
@@ -55,6 +65,10 @@ def install_nvim():
 
 
 def symlink_nvim():
+    """
+    make symlinks
+    """
+
     vim_src = home + "/.vim"
     vim_dst = home + "/.config/nvim"
     vimrc_src = home + "/.vimrc"
@@ -69,7 +83,11 @@ def symlink_nvim():
         print("[+] it has symlink already")
 
 
-if __name__ == '__main__':
+def main():
+    """
+    main function
+    """
+
     if len(sys.argv) == 2:
         file = sys.argv[1]
         set_vim_plug()
@@ -78,3 +96,7 @@ if __name__ == '__main__':
         symlink_nvim()
     else:
         print("set_vim vimrc")
+
+
+if __name__ == '__main__':
+    main()
