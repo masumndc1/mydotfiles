@@ -66,6 +66,13 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 
 if [[ `uname` == "Darwin" ]]; then
+    if [[ -f /opt/local/bin/zoxide ]]; then
+        alias cd="z"
+        eval "$(zoxide init zsh)"
+    else
+        sudo port install zoxide
+    fi
+
     if [[ -f /opt/local/bin/lsd ]]; then
         alias ll="lsd -l"
         alias ls="lsd"
