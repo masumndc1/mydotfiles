@@ -1,0 +1,85 @@
+import = ["/Users/khuddin/.config/alacritty/themes/themes/gruvbox_dark.toml"]
+live_config_reload = true
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.cursor]
+cursor = "#33ee33"
+
+[cursor]
+unfocused_hollow = true
+vi_mode_style = "underline"
+
+[cursor.style]
+shape ="underline"
+blinking = "On"
+
+[debug]
+log_level = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 18.0
+
+[font.bold]
+family = "TerminessTTF Nerd Font"
+style = "Bold"
+
+[font.glyph_offset]
+x = 0
+y = 1
+
+[font.italic]
+family = "TerminessTTF Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "TerminessTTF Nerd Font"
+style = "Medium"
+
+[font.offset]
+x = 0
+y = 0
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[shell]
+args = ["--login"]
+program = "/bin/zsh"
+
+[window]
+{% if ansible_system == "Linux" %}
+decorations = "full"
+{% else %}
+decorations = "buttonless"
+{% endif %}
+dynamic_padding = true
+opacity = 1.0
+startup_mode = "Windowed"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 15
+y = 15
