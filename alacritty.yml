@@ -29,6 +29,6 @@
     - name: Place alacritty configuration file
       become: false
       template:
-        src: template/alacritty.j2
-        dest: ~/.config/alacritty/alacritty.yml
+        src: template/alacritty.toml.j2
+        dest: ~/.config/alacritty/alacritty.toml
         mode: 0640
