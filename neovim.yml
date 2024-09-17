@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:nodes
+- hosts: nvim:nodes:localhost
   become: yes
   gather_facts: yes
   ignore_errors: yes
@@ -33,3 +33,10 @@
         state: present
         update_cache: yes
       when: ansible_os_family == "Suse"
+
+    - name: Install neovim in mac by mac ports
+      macports:
+        name: ['neovim', 'lazygit']
+        state: present
+        selfupdate: true
+      when: ansible_distribution == "MacOSX"
