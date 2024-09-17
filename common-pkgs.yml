@@ -7,7 +7,9 @@
     - name: Install common tools in MacOS
       macports:
         name: [ 'fd',
-          'zoxide',
+          'alacritty',
+          'tmux',
+          'neovim',
           'git-delta'
           ]
         state: present
