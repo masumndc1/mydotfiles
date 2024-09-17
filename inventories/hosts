@@ -1,9 +1,16 @@
 [all:children]
 nvims
 nodes
+localhosts
 
 [nvims]
 nvim
 
 [nodes]
 suse
+
+[localhosts]
+localhost
+
+[localhosts:vars]
+ansible_connection=local
