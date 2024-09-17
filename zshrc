@@ -1,34 +1,7 @@
 # If you come from bash you might have to change your $PATH.
-#
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    export ZSH="$HOME/.oh-my-zsh"
-    source $ZSH/oh-my-zsh.sh
-    # export LANG=en_US.UTF-8
-else
-    sh -c "$(curl -fsSL \
-        https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
-if [[ -d "$HOME/.fzf-tab" ]]; then
-    source $HOME/.fzf-tab/fzf-tab.plugin.zsh
-else
-    git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
-fi
-
-if [[ -d "$HOME/.fast-syntax-highlighting" ]]; then
-    source $HOME/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-else
-    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting \
-        $HOME/.fast-syntax-highlighting
-fi
-
-if [[ -f $HOME/.local/bin/pdm ]]; then
-    export PATH=$HOME/.local/bin:$PATH
-fi
 
 if [[ -f $HOME/.zplug/init.zsh ]]; then
     source $HOME/.zplug/init.zsh
@@ -39,7 +12,6 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
     zplug "zsh-users/zsh-completions"
     zplug "zsh-users/zaw"
     zplug "supercrabtree/k"
-    zplug "skywind3000/z.lua"
     zplug "jhawthorn/fzy"
     zplug "agkozak/zsh-z"
     zplug "belak/zsh-utils"
@@ -56,23 +28,30 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
     fi
     zplug load
 
-    plugins=( git
-    )
 else
     curl -sL --proto-redir -all,https \
         https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    export ZSH="$HOME/.oh-my-zsh"
+    source $ZSH/oh-my-zsh.sh
+    # export LANG=en_US.UTF-8
+else
+    sh -c "$(curl -fsSL \
+        https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if [[ -d "$HOME/.fzf-tab" ]]; then
+    autoload -U compinit && compinit
+    source $HOME/.fzf-tab/fzf-tab.plugin.zsh
+    enable-fzf-tab
+else
+    git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
+fi
+
 # Add wisely, as too many plugins slow down shell startup.
-
 if [[ `uname` == "Darwin" ]]; then
-    if [[ -f /opt/local/bin/zoxide ]]; then
-        alias cd="z"
-        eval "$(zoxide init zsh)"
-    else
-        sudo port install zoxide
-    fi
-
     if [[ -f /opt/local/bin/lsd ]]; then
         alias ll="lsd -l"
         alias ls="lsd"
@@ -83,6 +62,8 @@ if [[ `uname` == "Darwin" ]]; then
 
     if [[ -f /opt/local/bin/nvim ]]; then
         alias vim="/opt/local/bin/nvim"
+    else
+        sudo port install neovim
     fi
 
     if [[ -f /opt/local/bin/fzf ]]; then
@@ -151,21 +132,13 @@ else
     fi
 fi
 
-export git_location="$HOME/Documents/github"
-
 if [[ `uname -o` == 'Darwin' ]]; then
-    alias sshmine="ssh -F ssh.config"
     alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
     alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
     alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
     alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
     alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
-    alias acb="cd $HOME/Documents/csc_dev/ansible-cloud-bootstrap"
-    alias aka="cd $HOME/Documents/csc_dev/ansible-kaj-admin"
-    alias cccp="cd $HOME/Documents/csc_dev/cccp"
     alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
-    alias tasks="cd $HOME/Documents/tasks"
-    alias project="cd $HOME/Documents/tasks/project"
     alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
     alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
     alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
@@ -173,6 +146,8 @@ if [[ `uname -o` == 'Darwin' ]]; then
 
     if [[ -f /opt/homebrew/bin/nvim ]]; then
       alias vim="/opt/homebrew/bin/nvim"
+    elif [[ -f /opt/local/bin/nvim ]]; then
+      alias vim="/opt/local/bin/nvim"
     fi
 
 else
@@ -182,10 +157,6 @@ else
 fi
 
 alias gig="git log --all --decorate --oneline --graph"
-alias management="cd $git_location/management"
-alias testcoding="cd $git_location/test-coding"
-alias mydotfiles="cd $git_location/mydotfiles"
-alias zim="cd $git_location/zim"
 alias cdiff="diff --suppress-common-lines --side-by-side --color=always"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
