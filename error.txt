@@ -1,0 +1,8 @@
+
+
+...
+... alacritty error
+... if you see following
+... YAML config ~/.config/alacritty/alacritty.yml is depcreated,
+... please migrate to toml using `alacrity migrate`
+...
