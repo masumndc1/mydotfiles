@@ -46,6 +46,7 @@ if [[ -d "$HOME/.fzf-tab" ]]; then
     autoload -U compinit && compinit
     source $HOME/.fzf-tab/fzf-tab.plugin.zsh
     enable-fzf-tab
+    bindkey '$' autosuggest-accept
 else
     git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
 fi
