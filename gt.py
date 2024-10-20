@@ -7,10 +7,10 @@ import sys
 import subprocess
 
 
-class GitOperation():
-    '''
+class GitOperation:
+    """
     gt.py "commit_msg" branch_name(optional) default_branch: master
-    '''
+    """
 
     def __init__(self):
         self.msg = sys.argv[1]
@@ -27,13 +27,11 @@ class GitOperation():
         self._commit() if not retcode else sys.exit("could not add files")
 
     def _commit(self):
-        retcode = subprocess.call(
-            'git commit -m "%s"' % self.msg, shell=True)
+        retcode = subprocess.call('git commit -m "%s"' % self.msg, shell=True)
         self._push() if not retcode else sys.exit("could not commit")
 
     def _push(self):
-        retcode = subprocess.call(
-            'git push origin "%s"' % self.branch, shell=True)
+        retcode = subprocess.call('git push origin "%s"' % self.branch, shell=True)
         if not retcode:
             print(f"Pushed to {self.branch} branch")
             self._term_size()
