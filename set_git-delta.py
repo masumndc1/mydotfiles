@@ -3,9 +3,9 @@
 import os
 import shutil
 
-gitconfig = os.path.expanduser('~') + '/.gitconfig'
-gitconfig_themes = os.getcwd() + '/themes_gitconfig'
-themes_des = os.path.expanduser('~') + '/themes_gitconfig'
+gitconfig = os.path.expanduser("~") + "/.gitconfig"
+gitconfig_themes = os.getcwd() + "/themes_gitconfig"
+themes_des = os.path.expanduser("~") + "/themes_gitconfig"
 delta_conf = """
 [user]
     name =
@@ -54,7 +54,7 @@ def setup_themesfile():
 
 def setup_delta(path):
     if os.path.exists(path):
-        with open(path, 'r+') as f:
+        with open(path, "r+") as f:
             if delta_conf not in f.read():
                 f.seek(10)
                 f.write(delta_conf)
@@ -65,7 +65,7 @@ def main():
     if os.path.exists(gitconfig):
         setup_delta(gitconfig)
     else:
-        print('we could not find the gitconfig file')
+        print("we could not find the gitconfig file")
 
 
 if __name__ == "__main__":

@@ -7,8 +7,7 @@ import subprocess
 
 
 def set_tmux(file):
-
-    home = os.path.expanduser('~')
+    home = os.path.expanduser("~")
     location_tmux_conf = home + "/." + file
     backup_tmux_conf = home + "/." + file + ".bk"
     plugin_location = home + "/.tmux/plugins/tpm"
@@ -22,12 +21,13 @@ def set_tmux(file):
     if not os.path.exists(plugin_location):
         subprocess.check_output(
             f"git clone https://github.com/tmux-plugins/tmp {plugin_location}",
-            shell=True)
+            shell=True,
+        )
     else:
         print("tpm location is set")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) == 2:
         file = sys.argv[1]
         set_tmux(file)

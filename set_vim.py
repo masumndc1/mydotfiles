@@ -8,10 +8,8 @@ import sys
 from subprocess import check_call as call
 
 
-home = os.path.expanduser('~')
-vim_plug_loc = [
-    "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-]
+home = os.path.expanduser("~")
+vim_plug_loc = ["https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"]
 
 
 def set_vim_plug():
@@ -25,7 +23,7 @@ def set_vim_plug():
         print("[-] vim_plug is not installed")
         os.makedirs(os.path.dirname(loc_vim_plug), exist_ok=True)
         r = requests.get(vim_plug_loc[0])
-        with open(loc_vim_plug, 'wb') as f:
+        with open(loc_vim_plug, "wb") as f:
             f.write(r.content)
 
 
@@ -98,5 +96,5 @@ def main():
         print("set_vim vimrc")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
