@@ -1,3 +1,5 @@
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 # mydotfiles
 all of my dot files
 
@@ -13,6 +15,3 @@ Install and run `python3 set_tmux.py` to install tmux plugins.
 ## custome nvim
 Install your fav nvim framework. My fav is lunarvim.
 Place config.lua in ~/.config/config.lua
-
-## some-future-thoughts
-Another alternative for p10k can be oh-my-posh
