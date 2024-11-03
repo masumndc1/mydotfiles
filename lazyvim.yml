@@ -11,14 +11,22 @@
             'gcc',
             'libsquashfuse0',
             'squashfuse',
-            'fuse' ]
+            'fuse',
+            'python3-venv',
+            'luajit',
+            'lua5.3',
+            'luarocks',
+            'ripgrep',
+            'fd-find',
+            'curl' ]
         state: present
       when: ansible_distribution == "Debian"
       tags: debian
 
     - name: Install neovim with snap
       community.general.snap:
-        name: neovim
+        name: [ 'snapd',
+                'nvim' ]
         classic: true
       when: ansible_distribution == "Debian"
       tags: debian
@@ -28,6 +36,7 @@
         name: neovim
         state: present
       when: ansible_distribution == "MacOSX"
+      tags: macos
 
     - name: Make a copy of previous config files
       copy:
@@ -36,6 +45,9 @@
         remote_src: true
         validate: ls ~/.config/nvim %s
       when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+      tags:
+        - debian
+        - ubuntu
 
     - name: Make a copy of previous shared config files
       copy:
@@ -44,6 +56,9 @@
         remote_src: true
         validate: ls ~/.local/share/nvim %s
       when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+      tags:
+        - debian
+        - ubuntu
 
     - name: Install pip and ruby
       apt:
@@ -69,6 +84,9 @@
       git:
         repo: 'https://github.com/LazyVim/starter'
         dest: ~/.config/nvim
+      tags:
+        - debian
+        - ubuntu
 
     - name: Do following after installing nvim and lazyvim
       debug:
