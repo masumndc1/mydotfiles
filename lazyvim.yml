@@ -4,6 +4,25 @@
   ignore_errors: true
 
   tasks:
+    - name: Install required packages in debian
+      package:
+        name: [ 'snapd',
+            'git',
+            'gcc',
+            'libsquashfuse0',
+            'squashfuse',
+            'fuse' ]
+        state: present
+      when: ansible_distribution == "Debian"
+      tags: debian
+
+    - name: Install neovim with snap
+      community.general.snap:
+        name: neovim
+        classic: true
+      when: ansible_distribution == "Debian"
+      tags: debian
+
     - name: Install neovim in MacOSX
       homebrew:
         name: neovim
@@ -16,7 +35,7 @@
         dest: ~/.config/nvim.bk
         remote_src: true
         validate: ls ~/.config/nvim %s
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
     - name: Make a copy of previous shared config files
       copy:
@@ -24,7 +43,7 @@
         dest: ~/.local/share/nvim.bk
         remote_src: true
         validate: ls ~/.local/share/nvim %s
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
     - name: Install pip and ruby
       apt:
