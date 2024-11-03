@@ -7,6 +7,7 @@
     - name: Install required packages in debian
       package:
         name: [ 'snapd',
+            'apt-utils',
             'git',
             'gcc',
             'libsquashfuse0',
