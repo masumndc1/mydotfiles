@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:nodes:localhost
+- hosts: nvim:nodes:localhost:lxds
   become: yes
   gather_facts: yes
   ignore_errors: yes

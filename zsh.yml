@@ -1,0 +1,28 @@
+---
+- hosts: localhost:compute:lxds
+  vars:
+    the_user: "{{ ansible_user_id }}"
+
+  tasks:
+  - name: install zsh and others packages
+    become: true
+    package:
+      name: [ 'zsh',
+        ]
+      state: latest
+
+  - name: change user shell to zsh
+    become: true
+    user:
+      name: "{{ the_user }}"
+      shell: /usr/bin/zsh
+
+  - name: set zshrc file
+    copy:
+      src: zshrc
+      dest: ~/.zshrc
+
+  - name: set p10k file
+    copy:
+      src: p10k.zsh
+      dest: ~/.p10k.zsh

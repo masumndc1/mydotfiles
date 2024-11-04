@@ -1,5 +1,9 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+if [[ -d /snap/bin ]]; then
+  export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
+else
+  export PATH=$HOME/bin:/usr/local/bin:$PATH
+fi
 # "curl: (35) error:06FFF089:digital envelope routines:CRYPTO_internal:bad key length"
 export CURL_SSL_BACKEND="secure-transport"
 
@@ -104,6 +108,12 @@ else
                 alias ll="exa --icons -l"
                 alias ls="exa --icons"
                 alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+            elif [[ ! -z `cat /etc/os-release | grep -i debian` ]]; then
+                if [[ ! -f /usr/bin/lsd ]]; then
+                    sudo apt-get install lsd
+                fi
+                alias ls="lsd --icon always"
+                alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
             elif [[ ! -z `uname -v | grep -i ubuntu` ]]; then
                 if [[ ! -f /usr/bin/lsd ]]; then
                     sudo snap install lsd
