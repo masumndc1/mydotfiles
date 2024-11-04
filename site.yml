@@ -1,0 +1,5 @@
+---
+- name: Install neovim and setup lazyvim
+  import_playbook: lazyvim.yml
+- name: Install zsh and setup zsh
+  import_playbook: zsh.yml
