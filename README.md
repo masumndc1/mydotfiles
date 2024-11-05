@@ -3,16 +3,13 @@
 # mydotfiles
 all of my dot files
 
-## place vimrc
-Install and run `python3 set_vim.py` to install vim plugins.
-Do this if you are setting vim or neovim manually.
-
-## place zshrc
-Install and run `python3 set_zsh.py` to install zsh plugins.
-Before that, you might need oh-my-zsh installed.
-
-## place tmux
-Install and run `python3 set_tmux.py` to install tmux plugins.
-
 ## custome nvim
 I am fan of LazyVim.
+
+## usages
+```
+ansible-playbook -i inventories/hosts site.yml -l localhost
+```
+
+## terminal look
+![terminal](pics/terminal.png)
