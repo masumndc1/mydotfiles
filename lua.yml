@@ -39,22 +39,31 @@
           ]
         state: present
         update_cache: true
-      when: ansible_distribution == 'CentOS'
+      when: ansible_os_family == "RedHat"
 
     - name: Install lua in debian based systems
-      yum:
-        name: ['lua-devel',
+      apt:
+        name: ['liblua5.1-0-dev',
           'liblua5.1-0',
-          'liblua5.1-0-dev',
+          'lua5.1',
+          'lua5.1-doc',
+          'lua5.2',
+          'lua5.2-doc',
           'lua-posix',
           'lua-socket',
           'lua-system',
+          'lua-penlight',
+          'lua-penlight-dev',
+          'lua-curl',
           'luarocks',
+          'luajit2',
+          'lua-http',
+          'lua-filesystem',
+          'lua-argparse',
           'lua-check' ]
         state: present
         update_cache: true
-      when: ansible_distribution == 'Ubuntu' or
-            ansible_distribution == 'Debian'
+      when: ansible_os_family == "Debian"
 
     - name: Install lua in opensuse
       zypper:
