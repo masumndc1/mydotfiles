@@ -11,6 +11,7 @@ jenkins
 devstacks
 nids
 images
+lua
 
 [compute]
 suse
@@ -61,6 +62,14 @@ sys-ubu22-prod
 monitoring
 elasticsiem
 kibana
+
+[lua]
+sys-deb12-dev1
+sys-deb12-dev2
+sys-alma8-dev1
+sys-alma8-dev2
+sys-alma9-dev1
+sys-alma9-dev2
 
 [jumphosts]
 jumphost
