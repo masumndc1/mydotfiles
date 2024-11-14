@@ -57,6 +57,10 @@ fi
 
 # Add wisely, as too many plugins slow down shell startup.
 if [[ `uname` == "Darwin" ]]; then
+    if [[ -f /opt/local/bin/luarocks ]]; then
+        eval "$(luarocks path)"
+    fi
+
     if [[ -f /opt/local/bin/lsd ]]; then
         alias ll="lsd -l"
         alias ls="lsd"
@@ -83,6 +87,10 @@ if [[ `uname` == "Darwin" ]]; then
     fi
 else
     if [[ `uname` == "Linux" ]]; then
+        if [[ -f /usr/bin/luarocks ]]; then
+            eval "$(luarocks path)"
+        fi
+
         if [[ -f /usr/bin/zypper ]]; then
             source /etc/zsh_completion.d/fzf-key-bindings
             export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
