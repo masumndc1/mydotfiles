@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: localhost:compute
   become: true
   gather_facts: yes
 
@@ -19,8 +19,12 @@
     - name: Install common tools in Opensuse
       zypper:
         name: [ 'fd',
+          'neovim',
           'zoxide',
-          'git-delta'
+          'git-delta',
+          'ripgrep',
+          'git',
+          'lazygit'
           ]
         state: present
         update_cache: yes
