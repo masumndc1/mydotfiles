@@ -92,6 +92,12 @@ else
         fi
 
         if [[ -f /usr/bin/zypper ]]; then
+            if [[ ! -f /bin/fzf ]]; then
+              sudo zypper install -y fzf fzf-zsh-integration
+            fi
+            if [[ ! -f /bin/bat ]]; then
+              sudo zypper install -y bat
+            fi
             source /etc/zsh_completion.d/fzf-key-bindings
             export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
             export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
@@ -102,6 +108,9 @@ else
               alias ls="exa --icons"
               alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
             else
+              if [[ ! -f /usr/bin/lsd ]]; then
+                sudo zypper install -y lsd
+              fi
               alias ll="lsd -l"
               alias ls="lsd"
               alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
