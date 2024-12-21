@@ -10,7 +10,10 @@
           'alacritty',
           'tmux',
           'neovim',
-          'git-delta'
+          'git-delta',
+          'ripgrep',
+          'bat',
+          'lsd',
           ]
         state: present
         selfupdate: yes
