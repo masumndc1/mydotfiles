@@ -1,5 +1,5 @@
-import = ["/Users/khuddin/.config/alacritty/themes/themes/gruvbox_dark.toml"]
-live_config_reload = true
+general.import = ["/Users/khuddin/.config/alacritty/themes/themes/gruvbox_dark.toml"]
+general.live_config_reload = true
 
 [colors]
 draw_bold_text_with_bright_colors = true
@@ -25,7 +25,11 @@ render_timer = false
 TERM = "xterm-256color"
 
 [font]
+{% if ansible_hostname == "aair13-2QD1WG7" %}
+size = 17.0
+{% else %}
 size = 18.0
+{% endif %}
 
 [font.bold]
 family = "TerminessTTF Nerd Font"
@@ -62,7 +66,7 @@ multiplier = 3
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/zsh"
 
