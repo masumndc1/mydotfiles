@@ -56,7 +56,7 @@ else
 fi
 
 # Add wisely, as too many plugins slow down shell startup.
-if [[ `uname` == "Darwin" ]]; then
+if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
     if [[ -f /opt/local/bin/luarocks ]]; then
         eval "$(luarocks path)"
     fi
@@ -85,6 +85,14 @@ if [[ `uname` == "Darwin" ]]; then
     else
         sudo port install fzf ripgrep bat
     fi
+
+    if [[ -f /opt/local/bin/sk ]]; then
+        alias skim='rg --files | sk --preview="bat {} --color=always"'
+        alias skimi='sk -i --case=smart -c "rg {} --color=always" --ansi'
+    else
+        sudo port install skim
+    fi
+
 else
     if [[ `uname` == "Linux" ]]; then
         if [[ -f /usr/bin/luarocks ]]; then
