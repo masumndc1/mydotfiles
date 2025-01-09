@@ -1,0 +1,74 @@
+
+
+... how to install a plugin in neovim
+
+## Follow instructions how to add plugin here https://www.lazyvim.org/configuration/plugins
+## So in this case, create a file in lua/plugins/plugins.lua and add this:
+
+❯ pwd
+/Users/khuddin/.config/nvim/lua/plugins
+❯ cat plugins.lua
+return {
+  "nvim-orgmode/orgmode",
+  event = "VeryLazy",
+  ft = { "org" },
+  config = function()
+    require("orgmode").setup({
+      org_agenda_files = "~/orgfiles/**/*",
+      org_default_notes_file = "~/orgfiles/refile.org",
+    })
+  end,
+}
+
+... reload nvim
+... if you need to add multiple plugins add them in same plugins file. 
+... for example,
+
+return {
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "echasnovski/mini.nvim"
+      },
+    opts = {},
+  },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = {
+      "MarkdownPreviewToggle",
+      "MarkdownPreview",
+      "MarkdownPreviewStop"
+      },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
+
+  {
+    "nvim-neorg/neorg",
+    ft = "norg",
+    lazy = false,
+    version = "*",
+    config = true,
+    opts = {
+      load = {
+        ["core.defaults"] = {},
+      },
+    },
+  },
+
+  {
+    "nvim-orgmode/orgmode",
+    event = "VeryLazy",
+    ft = { "org" },
+    config = function()
+      require("orgmode").setup({
+        org_agenda_files = "~/orgfiles/**/*",
+        org_default_notes_file = "~/orgfiles/refile.org",
+      })
+    end,
+  },
+}
