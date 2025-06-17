@@ -17,7 +17,7 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
     zplug "zsh-users/zaw"
     zplug "supercrabtree/k"
     zplug "jhawthorn/fzy"
-    zplug "agkozak/zsh-z"
+    # zplug "agkozak/zsh-z"
     zplug "belak/zsh-utils"
     zplug "plugins/git", from:oh-my-zsh
     zplug "plugins/github", from:oh-my-zsh
@@ -73,6 +73,10 @@ if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
         alias vim="/opt/local/bin/nvim"
     else
         sudo port install neovim
+    fi
+
+    if [[ -f /opt/local/bin/zoxide ]]; then
+        eval "$(zoxide init --cmd cd zsh)"
     fi
 
     if [[ -f /opt/local/bin/fzf ]]; then
