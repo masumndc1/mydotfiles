@@ -2,10 +2,10 @@
 
 import os
 import requests
-import shutil
 import sys
 
 from subprocess import check_call as call
+from shutil import copy as copy
 
 
 home = os.path.expanduser("~")
@@ -36,10 +36,10 @@ def set_vim(file):
     backup_vim_conf = home + "/." + file + ".bk"
 
     if os.path.exists(location_vim_conf):
-        shutil.copy(location_vim_conf, backup_vim_conf)
-        shutil.copy(file, location_vim_conf)
+        copy(location_vim_conf, backup_vim_conf)
+        copy(file, location_vim_conf)
     else:
-        shutil.copy(file, location_vim_conf)
+        copy(file, location_vim_conf)
 
 
 def install_nvim():
@@ -57,7 +57,7 @@ def install_nvim():
             call("sudo apt install -y neovim", shell=True)
             call("sudo apt install python3-neovim", shell=True)
         elif os.path.exists("/usr/bin/yum"):
-            call("sudo apt install -y yum", shell=True)
+            call("sudo apt install -y vim", shell=True)
     else:
         print("we dont support this OS")
 
