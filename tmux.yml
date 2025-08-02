@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:compute:lxds
+- hosts: localhost:compute:lxds:laptops
 
   tasks:
   - name: install tmux
