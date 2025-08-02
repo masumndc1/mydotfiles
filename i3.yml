@@ -1,5 +1,5 @@
 ---
-- hosts: i3:localhost
+- hosts: i3:localhost:laptops
   become: true
   gather_facts: true
   ignore_errors: true
@@ -14,14 +14,46 @@
 
     - name: Install i3 in debian varient
       ansible.builtin.apt:
-        name: i3
+        name: [ 'i3',
+          'i3-wm',
+           'xorg',
+           'lightdm'
+          ]
         state: present
         update_cache: true
       when: ansible_distribution == "Debian" or
             ansible_distribution == "Ubuntu"
 
+    - name: create dot config directory
+      become: false
+      file:
+        path: ~/.config/i3
+        mode: '0755'
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: true
+
     - name: Copy i3 config
       become: false
-      copy:
+      template:
         src: template/i3_config.j2
         dest: ~/.config/i3/config
+        mode: '0644'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: install some additional packages in debian
+      ansible.builtin.apt:
+        name: [ 'konsole',
+          'firefox-esr',
+          'neovim',
+          'thunar',
+          'tmux',
+          'git',
+          'curl'
+          ]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Debian" or
+            ansible_distribution == "Ubuntu"
