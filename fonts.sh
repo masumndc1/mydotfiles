@@ -1,11 +1,9 @@
 #!/bin/bash -x
 # powerline fonts
+# place the fonts in /usr/share/fonts directory
+# run this as root user
 
-if [[ `uname` == "Linux" ]]; then
-    if [[ ! -f "/usr/local/share/fonts/meslo" ]]; then
-        mkdir /usr/local/share/fonts/meslo
-        cp fonts/*.ttf /usr/local/share/fonts/meslo/
-    else
-        cp fonts/*.ttf /usr/local/share/fonts/meslo/
-    fi
+if [[ $(uname) == "Linux" ]]; then
+  echo -n "run this as root user"
+  cp fonts/terminus/*.ttf /usr/share/fonts
 fi
