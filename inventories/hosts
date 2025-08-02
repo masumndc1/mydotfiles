@@ -12,6 +12,7 @@ devstacks
 nids
 images
 lua
+laptops
 
 [compute]
 suse
@@ -70,6 +71,11 @@ sys-alma8-dev1
 sys-alma8-dev2
 sys-alma9-dev1
 sys-alma9-dev2
+
+[laptops]
+lap-acer
+lap-asus
+lap-lenovo
 
 [jumphosts]
 jumphost
