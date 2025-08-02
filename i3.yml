@@ -51,7 +51,9 @@
           'thunar',
           'tmux',
           'git',
-          'curl'
+          'curl',
+          'lua5.4',
+          'snapd'
           ]
         state: present
         update_cache: true
