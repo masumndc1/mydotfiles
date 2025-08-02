@@ -115,8 +115,8 @@ set $ws1 "1"
 set $ws2 "2: konsole"
 set $ws3 "3: firefox"
 set $ws4 "4: thunar"
-set $ws5 "5: virt"
-set $ws6 "6: settings"
+set $ws5 "5"
+set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -126,8 +126,6 @@ exec --no-startup-id i3-msg 'workspace $ws1 output HDMI-0'
 exec --no-startup-id i3-msg 'workspace $ws2; exec konsole -e tmux'
 exec --no-startup-id i3-msg 'workspace $ws3; exec firefox'
 exec --no-startup-id i3-msg 'workspace $ws4; exec thunar'
-exec --no-startup-id i3-msg 'workspace $ws5; exec systemsettings5'
-exec --no-startup-id i3-msg 'workspace $ws6; exec virt-manager'
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
