@@ -18,3 +18,7 @@
     git:
       repo: 'https://github.com/tmux-plugins/tpm'
       dest: ~/.tmux/plugins/tpm
+
+  - name: install plugins
+    debug:
+      msg: Now run prefix + I to install plugins
