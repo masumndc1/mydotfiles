@@ -2,6 +2,7 @@
 - hosts: localhost:compute
   become: true
   gather_facts: yes
+  ignore_errors: true
 
   tasks:
     - name: Install common tools in MacOS
@@ -40,3 +41,15 @@
         state: present
         update_cache: yes
       when: ansible_os_family == "Suse"
+
+    - name: Install common tools in Debian
+      apt:
+        name: [
+          'neovim',
+          'zoxide',
+          'ripgrep',
+          'git',
+          ]
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
