@@ -49,6 +49,7 @@
           'zoxide',
           'ripgrep',
           'git',
+          'python3-venv',
           ]
         state: present
         update_cache: yes
