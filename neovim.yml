@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:nodes:localhost:lxds
+- hosts: nvim:nodes:localhost:lxds:laptops
   become: yes
   gather_facts: yes
   ignore_errors: yes
@@ -9,23 +9,45 @@
       apt:
         name: [ 'unzip',
           'python3-venv',
-          'npm',
           'git'
           ]
         state: latest
         update_cache: yes
       when: ansible_distribution == "Ubuntu"
 
+    - name: Install neovim with snap
+      community.general.snap:
+        name: [ 'snapd',
+                'nvim' ]
+        classic: true
+      when: ansible_os_family == "Debian"
+        and ansible_distribution_major_version|int == 24
+      tags:
+        - debian
+        - ubuntu
+
+    - name: Install neovim in before noble ubuntu
+      apt:
+        name: [
+          'neovim',
+          ]
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+        and ansible_distribution_major_version|int < 24
+
     - name: Copy nvim-linux64 deb package to /tmp
       copy:
         src: astronvim/nvim-linux64.deb
         dest: /tmp/nvim-linux64.deb
       when: ansible_distribution == "Ubuntu"
+        and ansible_distribution_major_version|int < 24
 
     - name: Install nvim-linux64 deb package
       apt:
         deb: /tmp/nvim-linux64.deb
       when: ansible_distribution == "Ubuntu"
+        and ansible_distribution_major_version|int < 24
 
     - name: Install neovim in Suse
       zypper:
