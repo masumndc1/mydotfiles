@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:compute
+- hosts: localhost:compute:laptops
   become: true
   gather_facts: yes
   ignore_errors: true
