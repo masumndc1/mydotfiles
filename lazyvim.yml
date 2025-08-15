@@ -1,10 +1,11 @@
 ---
-- hosts: nvim:localhost:nodes:lxds
+- hosts: nvim:localhost:nodes:lxds:laptops
   gather_facts: true
+  become: true
   ignore_errors: true
 
   tasks:
-    - name: Install required packages in debian
+    - name: Install required packages in Ubuntu
       package:
         name: [ 'snapd',
             'apt-utils',
@@ -22,16 +23,20 @@
             'fd-find',
             'curl' ]
         state: present
-      when: ansible_distribution == "Debian"
-      tags: debian
+      when: ansible_os_family == "Debian"
+      tags:
+        - debian
+        - ubuntu
 
     - name: Install neovim with snap
       community.general.snap:
         name: [ 'snapd',
                 'nvim' ]
         classic: true
-      when: ansible_distribution == "Debian"
-      tags: debian
+      when: ansible_os_family == "Debian"
+      tags:
+        - debian
+        - ubuntu
 
     - name: Install neovim in MacOSX
       homebrew:
@@ -41,32 +46,43 @@
       tags: macos
 
     - name: Make a copy of previous config files
+      become: false
       copy:
         src: ~/.config/nvim
         dest: ~/.config/nvim.bk
         remote_src: true
         validate: ls ~/.config/nvim %s
-      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+      when: ansible_distribution == "Ubuntu"
+         or ansible_distribution == "Debian"
       tags:
         - debian
         - ubuntu
 
     - name: Make a copy of previous shared config files
+      become: false
       copy:
         src: ~/.local/share/nvim
         dest: ~/.local/share/nvim.bk
         remote_src: true
         validate: ls ~/.local/share/nvim %s
-      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+      when: ansible_distribution == "Ubuntu"
+         or ansible_distribution == "Debian"
       tags:
         - debian
         - ubuntu
 
-    - name: Install pip and ruby
+    - name: Install pip
       apt:
-        name: ['python3-pip', 'ruby3.0']
+        name: ['python3-pip']
+        update_cache: true
         state: latest
-      when: ansible_distribution == "Ubuntu"
+      when: ansible_os_family == "Debian"
+
+    - name: Install ruby
+      apt:
+        name: ['ruby3.0']
+        state: latest
+      when: ansible_distribution == "Debian"
 
     - name: Install py-right by pip
       pip:
@@ -81,8 +97,10 @@
         state: latest
         user_install: true
       when: ansible_distribution == "Ubuntu"
+        and ansible_distribution_major_version|int < 24
 
     - name: Git clone lazyvim
+      become: false
       git:
         repo: 'https://github.com/LazyVim/starter'
         dest: ~/.config/nvim
@@ -91,6 +109,7 @@
         - ubuntu
 
     - name: Do following after installing nvim and lazyvim
+      become: false
       debug:
         msg:
           - Now run "nvim"
