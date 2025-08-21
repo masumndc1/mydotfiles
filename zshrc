@@ -133,6 +133,11 @@ else
 
         if [[ -f /usr/bin/apt ]]; then
             if [[ ! -z `uname -v | grep -i debian` ]]; then
+                if [[ -f /sbin/bin/nvim ]]; then
+                    alias vim="/sbin/bin/nvim"
+                elif [[ -f /usr/bin/nvim ]]; then
+                    alias vim="/usr/bin/nvim"
+                fi
                 if [[ ! -f /usr/bin/exa ]]; then
                     sudo apt-get install exa
                 fi
