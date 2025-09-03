@@ -8,6 +8,8 @@
     become: true
     package:
       name: [ 'zsh',
+        'curl',
+        'git',
         ]
       state: latest
 
@@ -18,8 +20,8 @@
       shell: /usr/bin/zsh
 
   - name: set zshrc file
-    copy:
-      src: zshrc
+    template:
+      src: template/zshrc.j2
       dest: ~/.zshrc
 
   - name: set p10k file
