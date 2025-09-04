@@ -23,6 +23,7 @@
     template:
       src: template/zshrc.j2
       dest: ~/.zshrc
+    tags: zshrc
 
   - name: set p10k file
     copy:
