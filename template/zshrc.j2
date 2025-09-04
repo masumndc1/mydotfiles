@@ -200,14 +200,15 @@ source ~/.fzf-tab/fzf-tab.plugin.zsh
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 {% else %}
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
 {% endif %}
-alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 if [[ -d $HOME/Documents/venv ]]; then
   alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
   alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
