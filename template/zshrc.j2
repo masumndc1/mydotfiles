@@ -168,13 +168,46 @@ export CURL_SSL_BACKEND="secure-transport"
   if [[ ! -f /usr/bin/fzf ]]; then
     sudo apt install -y fzf ripgrep
   fi
+
+  {% elif ansible_os_family == "RedHat" %}
+  if [[ ! -f $HOME/.cargo/bin/lsd ]]; then
+    sudo yum install -y cargo
+    cargo install lsd
+  else
+    export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+    alias ls="lsd --icon always"
+    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+  fi
+
+  if [[ -f /sbin/bin/nvim ]]; then
+    alias vim="/sbin/bin/nvim"
+  elif [[ -f /usr/bin/nvim ]]; then
+    alias vim="/usr/bin/nvim"
+  fi
+
+  if [[ ! -f /usr/bin/bat ]]; then
+    sudo yum install -y bat
+  fi
+
+  if [[ ! -f /usr/bin/fzf ]]; then
+    sudo yum install -y fzf ripgrep
+  fi
   {% endif %}
+
+{% if ansible_os_family == "RedHat" %}
+source ~/.fzf-tab/fzf-tab.zsh
+source ~/.fzf-tab/fzf-tab.plugin.zsh
+export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+{% else %}
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
-alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+{% endif %}
+alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 if [[ -d $HOME/Documents/venv ]]; then
   alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
   alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
