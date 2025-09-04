@@ -1,0 +1,235 @@
+if [[ -d /snap/bin ]]; then
+  export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$PATH
+else
+  export PATH=$HOME/bin:/usr/local/bin:$PATH
+fi
+
+if [[ -f $HOME/.zplug/init.zsh ]]; then
+  source $HOME/.zplug/init.zsh
+  zplug "romkatv/powerlevel10k", as:theme, depth:1
+  zplug "zsh-users/zsh-history-substring-search"
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-autosuggestions"
+  zplug "zsh-users/zsh-completions"
+  zplug "zsh-users/zaw"
+  zplug "supercrabtree/k"
+  zplug "jhawthorn/fzy"
+  zplug "agkozak/zsh-z"
+  zplug "belak/zsh-utils"
+  zplug "plugins/git", from:oh-my-zsh
+  zplug "plugins/github", from:oh-my-zsh
+  zplug "plugins/fsad", from:oh-my-zsh
+  zplug "zplug/zplug"
+
+  if ! zplug check --verbose ; then
+     printf "Install? [y/N]: "
+       if read -q; then
+          echo; zplug install
+       fi
+  fi
+  zplug load
+
+else
+  curl -sL --proto-redir -all,https \
+    https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+  export ZSH="$HOME/.oh-my-zsh"
+  source $ZSH/oh-my-zsh.sh
+  # export LANG=en_US.UTF-8
+else
+  sh -c "$(curl -fsSL \
+    https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if [[ -d "$HOME/.fzf-tab" ]]; then
+  autoload -U compinit && compinit
+  source $HOME/.fzf-tab/fzf-tab.plugin.zsh
+  enable-fzf-tab
+else
+  git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
+fi
+
+{% if ansible_system == "Darwin" %}
+export CURL_SSL_BACKEND="secure-transport"
+  if [[ -f /opt/local/bin/luarocks ]]; then
+    eval "$(luarocks path)"
+  fi
+
+  if [[ -f /opt/local/bin/lsd ]]; then
+    alias ll="lsd -l"
+    alias ls="lsd"
+    alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+  else
+    sudo port install lsd
+  fi
+
+  if [[ -f /opt/local/bin/nvim ]]; then
+    alias vim="/opt/local/bin/nvim"
+  else
+    sudo port install neovim
+  fi
+
+  if [[ -f /opt/local/bin/zoxide ]]; then
+    eval "$(zoxide init --cmd cd zsh)"
+  fi
+
+  if [[ -f /opt/local/bin/fzf ]]; then
+    source /opt/local/share/fzf/shell/key-bindings.zsh
+    source /opt/local/share/fzf/shell/completion.zsh
+    alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+  else
+    sudo port install fzf ripgrep bat
+  fi
+
+  if [[ -f /opt/local/bin/sk ]]; then
+    alias skim='rg --files | sk --preview="bat {} --color=always"'
+    alias skimi='sk -i --case=smart -c "rg {} --color=always" --ansi'
+  else
+    sudo port install skim
+  fi
+
+  alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
+  alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
+  alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
+  alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
+  alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
+  alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
+  alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
+  alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
+  alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
+  alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
+
+  if [[ -f /opt/homebrew/bin/nvim ]]; then
+    alias vim="/opt/homebrew/bin/nvim"
+  elif [[ -f /opt/local/bin/nvim ]]; then
+    alias vim="/opt/local/bin/nvim"
+  fi
+
+{% elif ansible_system == "Linux" %}
+
+  if [[ -f /usr/bin/luarocks ]]; then
+     eval "$(luarocks path)"
+  fi
+
+  if [[ -f /sbin/bin/nvim ]]; then
+     alias vim="/sbin/bin/nvim"
+  elif [[ -f /usr/bin/nvim ]]; then
+     alias vim="/usr/bin/nvim"
+  fi
+
+  {% if ansible_os_family == "Suse" %}
+    if [[ ! -f /usr/bin/fzf ]]; then
+       sudo zypper install -y ripgrep fzf fzf-zsh-integration
+    fi
+    if [[ ! -f /usr/bin/bat ]]; then
+       sudo zypper install -y bat
+    fi
+    if [[ ! -f /usr/bin/lsd ]]; then
+       sudo zypper install -y lsd
+    else
+       alias ll="lsd -l"
+       alias ls="lsd"
+       alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+    fi
+
+  {% elif ansible_distribution == "Debian" %}
+    if [[ ! -f /usr/bin/lsd ]]; then
+       sudo apt-get install -y lsd
+    else
+       alias ls="lsd --icon always"
+       alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+    fi
+
+    if [[ ! -f /usr/bin/batcat ]]; then
+       sudo apt install -y bat
+    fi
+
+    if [[ ! -f /usr/bin/fzf ]]; then
+       sudo apt install -y fzf ripgrep
+    fi
+
+  {% elif ansible_distribution == "Ubuntu"
+    and ansible_distribution_major_version| int == 22 %}
+
+    if [[ ! -f $HOME/.cargo/bin/lsd ]]; then
+       sudo apt install -y epel-release cargo
+       cargo install lsd
+    else
+       export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+       alias ls="lsd --icon always"
+       alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+    fi
+    if [[ ! -f /usr/bin/batcat ]]; then
+       sudo apt install -y bat
+    fi
+
+    if [[ ! -f /usr/bin/fzf ]]; then
+       sudo apt install -y fzf ripgrep
+    fi
+
+  {% elif ansible_distribution == "Ubuntu"
+    and ansible_distribution_major_version| int >= 24 %}
+
+    if [[ ! -f /usr/bin/lsd ]]; then
+       sudo apt-get install -y lsd
+    else
+       alias ls="lsd --icon always"
+       alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+    fi
+
+    if [[ ! -f /usr/bin/batcat ]]; then
+       sudo apt install -y bat
+    fi
+
+    if [[ ! -f /usr/bin/fzf ]]; then
+       sudo apt install -y fzf ripgrep
+    fi
+
+  {% elif ansible_os_family == "RedHat" %}
+    if [[ ! -f $HOME/.cargo/bin/lsd ]]; then
+       sudo yum install -y epel-release cargo
+       cargo install lsd
+    else
+       export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+       alias ls="lsd --icon always"
+       alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+    fi
+
+    if [[ ! -f /usr/bin/bat ]]; then
+       sudo yum install -y bat
+    fi
+
+    if [[ ! -f /usr/bin/fzf ]]; then
+       sudo yum install -y fzf ripgrep
+    fi
+{% endif %}
+
+{% if ansible_os_family == "RedHat" or ansible_os_family == "Suse" %}
+  source ~/.fzf-tab/fzf-tab.zsh
+  source ~/.fzf-tab/fzf-tab.plugin.zsh
+  alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+{% elif ansible_os_family == "Debian" %}
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  source /usr/share/doc/fzf/examples/completion.zsh
+  alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+{% endif %}
+
+if [[ -d $HOME/Documents/venv ]]; then
+  alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
+  alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
+  alias testenv="source $HOME/Documents/venv/testenv/bin/activate"
+fi
+
+{% endif %}
+
+alias cd="z"
+alias gig="git log --all --decorate --oneline --graph"
+alias cdiff="diff --suppress-common-lines --side-by-side --color=always"
+export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

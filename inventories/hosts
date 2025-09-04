@@ -1,36 +1,40 @@
 [all:children]
+localhosts
 puppetmasters
 puppetnodes
 saltmasters
 saltminions
 compute
-lxds
+incus
 jumphosts
 nagios
 jenkins
-devstacks
-nids
 images
-lua
 laptops
 
+[localhosts]
+localhost ansible_connection=local
+
 [compute]
-suse
-ubu-lxd
+ubu-incus
+lap-acer
+lap-asus
+lap-lenovo
+lap-macmini
 
 [jenkins]
 jenkin
 
 [puppetmasters]
-puppetserver
+puppetmaster
 
 [puppetnodes]
-sys-ubu20-dev1
-sys-ubu20-dev2
-sys-ubu20-prod
-sys-ubu22-dev1
-sys-ubu22-dev2
-sys-ubu22-prod
+puppet-dev1
+puppet-dev2
+puppet-dev3
+puppet-prod1
+puppet-prod2
+puppet-prod3
 
 [saltmasters]
 saltmaster
@@ -42,35 +46,37 @@ sys-prod1
 sys-prod2
 monitoring
 
-[lxds]
+[incus]
 puppetserver
 saltmaster
-sys-deb12-dev1
-sys-deb12-dev2
-sys-deb12-prod
-sys-alma8-dev1
-sys-alma8-dev2
-sys-alma8-prod
 sys-alma9-dev1
-sys-alma9-dev2
-sys-alma9-prod
-sys-ubu20-dev1
-sys-ubu20-dev2
-sys-ubu20-prod
+sys-deb12-dev1
+sys-deb13-dev1
 sys-ubu22-dev1
+sys-ubu24-dev1
+sys-alma9-dev2
+sys-deb12-dev2
+sys-deb13-dev2
 sys-ubu22-dev2
-sys-ubu22-prod
+sys-ubu24-dev2
+sys-alma9-dev3
+sys-deb12-dev3
+sys-deb13-dev3
+sys-ubu22-dev3
+sys-ubu24-dev3
+sys-alma9-dev4
+sys-deb12-dev4
+sys-deb13-dev4
+sys-ubu22-dev4
+sys-ubu24-dev4
+sys-alma9-dev5
+sys-deb12-dev5
+sys-deb13-dev5
+sys-ubu22-dev5
+sys-ubu24-dev5
 monitoring
 elasticsiem
 kibana
-
-[lua]
-sys-deb12-dev1
-sys-deb12-dev2
-sys-alma8-dev1
-sys-alma8-dev2
-sys-alma9-dev1
-sys-alma9-dev2
 
 [laptops]
 lap-acer
@@ -83,15 +89,6 @@ jumphost
 
 [nagios]
 jumphost
-
-[devstacks]
-devstack
-
-[nids]
-sys-dev1
-sys-dev2
-sys-prod1
-sys-prod2
 
 [images]
 image-server
