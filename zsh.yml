@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:compute:lxds:laptops
+- hosts: localhost:compute:incus:laptops
   vars:
     the_user: "{{ ansible_user_id }}"
 

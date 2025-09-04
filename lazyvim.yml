@@ -1,5 +1,5 @@
 ---
-- hosts: nvim:localhost:nodes:lxds:laptops
+- hosts: nvim:localhost:nodes:incus:laptops
   gather_facts: true
   become: true
   ignore_errors: true
