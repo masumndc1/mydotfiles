@@ -18,7 +18,7 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
   zplug "belak/zsh-utils"
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/github", from:oh-my-zsh
-  zplug "plugins/fsad", from:oh-my-zsh
+  #zplug "plugins/fsad", from:oh-my-zsh
   zplug "zplug/zplug"
 
   if ! zplug check --verbose ; then
@@ -71,10 +71,6 @@ export CURL_SSL_BACKEND="secure-transport"
     sudo port install neovim
   fi
 
-  if [[ -f /opt/local/bin/zoxide ]]; then
-    eval "$(zoxide init --cmd cd zsh)"
-  fi
-
   if [[ -f /opt/local/bin/fzf ]]; then
     source /opt/local/share/fzf/shell/key-bindings.zsh
     source /opt/local/share/fzf/shell/completion.zsh
@@ -90,12 +86,11 @@ export CURL_SSL_BACKEND="secure-transport"
     sudo port install skim
   fi
 
-  alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
-  alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
-  alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
-  alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
-  alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
-  alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
+  alias load_key="ssh-add -s /usr/local/lib/libykcs11.2.7.2.dylib"
+  alias unload_key="ssh-add -e /usr/local/lib/libykcs11.2.7.2.dylib"
+  alias sshmine="ssh -I /usr/local/lib/libykcs11.2.7.2.dylib -F ssh.config"
+  alias get_pubkey="ssh-keygen -D /usr/local/lib/libykcs11.2.7.2.dylib -e"
+  alias sshno="ssh -I /usr/local/lib/libykcs11.2.7.2.dylib -o StrictHostKeyChecking=no -F ssh.config"
   alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
   alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
   alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
@@ -154,8 +149,8 @@ export CURL_SSL_BACKEND="secure-transport"
     and ansible_distribution_major_version| int == 22 %}
 
     if [[ ! -f $HOME/.cargo/bin/lsd ]]; then
-       sudo apt install -y epel-release cargo
-       cargo install lsd
+       sudo apt install -y cargo
+       cargo install --locked lsd
     else
        export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
        alias ls="lsd --icon always"
