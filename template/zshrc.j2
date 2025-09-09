@@ -16,9 +16,6 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
   zplug "jhawthorn/fzy"
   zplug "agkozak/zsh-z"
   zplug "belak/zsh-utils"
-  zplug "plugins/git", from:oh-my-zsh
-  zplug "plugins/github", from:oh-my-zsh
-  #zplug "plugins/fsad", from:oh-my-zsh
   zplug "zplug/zplug"
 
   if ! zplug check --verbose ; then
@@ -32,15 +29,6 @@ if [[ -f $HOME/.zplug/init.zsh ]]; then
 else
   curl -sL --proto-redir -all,https \
     https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-fi
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-  export ZSH="$HOME/.oh-my-zsh"
-  source $ZSH/oh-my-zsh.sh
-  # export LANG=en_US.UTF-8
-else
-  sh -c "$(curl -fsSL \
-    https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 if [[ -d "$HOME/.fzf-tab" ]]; then
