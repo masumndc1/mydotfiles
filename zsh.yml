@@ -1,5 +1,6 @@
 ---
 - hosts: localhost:compute:incus:laptops
+  ignore_errors: true
   vars:
     the_user: "{{ ansible_user_id }}"
 
