@@ -5,20 +5,33 @@
     the_user: "{{ ansible_user_id }}"
 
   tasks:
-  - name: install zsh and others packages
+  - name: install zsh and others packages in MacOS
+    become: true
+    macports:
+      name: [ 'zsh',
+        'curl',
+        'git',
+        ]
+      state: present
+      update_cache: true
+    when: ansible_os_family == "Darwin"
+
+  - name: install zsh and others packages in MacOS
     become: true
     package:
       name: [ 'zsh',
         'curl',
         'git',
         ]
-      state: latest
+      state: present
+      update_cache: true
+    when: ansible_os_family != "Darwin"
 
   - name: change user shell to zsh
     become: true
     user:
       name: "{{ the_user }}"
-      shell: /usr/bin/zsh
+      shell: /bin/zsh
 
   - name: set zshrc file
     template:
