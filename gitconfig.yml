@@ -29,7 +29,7 @@
 
           [delta]
             features = mellow-barbet
-            side-by-side = true
+            side-by-side = {{ git_side_by_side }}
             navigate = true
             light = false
             line-numbers = true
