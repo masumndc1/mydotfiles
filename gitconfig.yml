@@ -16,7 +16,7 @@
         path: ~/.gitconfig
         block: |
           [core]
-            pager = delta
+            pager = {{ pager }}
 
           [include]
             path = ~/themes_gitconfig
@@ -28,7 +28,7 @@
             diffFilter = delta --color-only
 
           [delta]
-            features = mellow-barbet
+            features = {{ delta_theme }}
             side-by-side = {{ git_side_by_side }}
             navigate = true
             light = false
