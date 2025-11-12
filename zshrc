@@ -82,6 +82,8 @@ if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
     fi
 
     if [[ -f /opt/local/bin/fzf ]]; then
+        unsetopt cdablevars
+        unsetopt autocd
         source /opt/local/share/fzf/shell/key-bindings.zsh
         source /opt/local/share/fzf/shell/completion.zsh
         export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
