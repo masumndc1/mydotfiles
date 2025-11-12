@@ -77,6 +77,8 @@ if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
 
     if [[ -f /opt/local/bin/zoxide ]]; then
         eval "$(zoxide init --cmd cd zsh)"
+    else
+        sudo port install zoxide
     fi
 
     if [[ -f /opt/local/bin/fzf ]]; then
@@ -87,7 +89,7 @@ if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
         export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border --color=dark'
         alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
     else
-        sudo port install fzf ripgrep bat
+        sudo port install fzf ripgrep bat fd
     fi
 
     if [[ -f /opt/local/bin/sk ]]; then
@@ -205,6 +207,7 @@ fi
 
 alias gig="git log --all --decorate --oneline --graph"
 alias cdiff="diff --suppress-common-lines --side-by-side --color=always"
+alias cd="cd "$(fd . -t d | fzf )""
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
