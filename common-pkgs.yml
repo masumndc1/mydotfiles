@@ -50,6 +50,10 @@
           'ripgrep',
           'git',
           'python3-venv',
+          'rustc',
+          'python-dev-is-python3',
+          'xclip',
+          'xsel'
           ]
         state: present
         update_cache: yes
