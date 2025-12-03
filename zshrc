@@ -31,6 +31,15 @@ else
     https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 
+if [[ -d "$HOME/.fzf-tab" ]]; then
+  #autoload -U compinit && compinit
+  source $HOME/.fzf-tab/fzf-tab.plugin.zsh
+  enable-fzf-tab
+else
+  git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
+
+fi
+
 # Add wisely, as too many plugins slow down shell startup.
 if [[ `uname` == "Darwin" && `uname -p` == 'arm' ]]; then
   if [[ ! -f /opt/local/bin/zoxide ]]; then
