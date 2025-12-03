@@ -37,7 +37,6 @@ if [[ -d "$HOME/.fzf-tab" ]]; then
   enable-fzf-tab
 else
   git clone https://github.com/Aloxaf/fzf-tab $HOME/.fzf-tab
-
 fi
 
 # Add wisely, as too many plugins slow down shell startup.
