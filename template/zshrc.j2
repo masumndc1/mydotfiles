@@ -117,6 +117,7 @@ fi
 if [[ ! -f /usr/bin/lsd ]]; then
   sudo apt-get install -y lsd
 else
+  alias ll="lsd -l"
   alias ls="lsd --icon always"
   alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 fi
@@ -133,6 +134,7 @@ fi
 if [[ ! -f /usr/bin/exa ]]; then
   sudo apt install -y exa
 else
+  alias ll="exa -l"
   alias ls="exa --icons"
   alias lt="exa --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 fi
@@ -150,6 +152,7 @@ if [[ ! -f $HOME/.cargo/bin/lsd ]]; then
   cargo install lsd
 else
   export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+  alias ls="lsd -l"
   alias ls="lsd --icon always"
   alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
 fi
