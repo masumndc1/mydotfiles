@@ -68,7 +68,25 @@ else
     if [[ -f /usr/bin/luarocks ]]; then
       eval "$(luarocks path)"
     fi
-    if [[ -f /usr/bin/zypper ]]; then
+
+    if [[ -f /usr/bin/yum ]]; then
+      if [[ ! -f /bin/bat ]]; then
+        sudo yum install -y bat
+      fi
+      if [[ ! -f /bin/fzf ]]; then
+        sudo zypper install -y fzf fzf-zsh-integration
+      else
+        source /etc/zsh_completion.d/fzf-key-bindings
+      fi
+      if [[ ! -f /usr/bin/lsd ]]; then
+        sudo zypper install -y lsd
+      else
+        alias ll="lsd -l"
+        alias ls="lsd"
+        alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+      fi
+
+    elif [[ -f /usr/bin/zypper ]]; then
       if [[ ! -f /bin/bat ]]; then
         sudo zypper install -y bat
       fi
@@ -84,32 +102,32 @@ else
         alias ls="lsd"
         alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
       fi
+
+    elif [[ -f /usr/bin/apt ]]; then
+      if [[ ! -f /usr/bin/lsd ]]; then
+        sudo apt install -y lsd
+      else
+        alias ll="lsd -l"
+        alias ls="lsd"
+        alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+      fi
+      if [[ ! -f /usr/bin/batcat ]]; then
+        sudo apt install -y bat
+      fi
+      if [[ ! -f /usr/bin/fzf ]]; then
+        sudo apt install -y fzf ripgrep
+      else
+        source /usr/share/doc/fzf/examples/key-bindings.zsh
+        source /usr/share/doc/fzf/examples/completion.zsh
+      fi
+      if [[ -f /sbin/bin/nvim ]]; then
+        alias vim="/sbin/bin/nvim"
+      elif [[ -f /usr/bin/nvim ]]; then
+        alias vim="/usr/bin/nvim"
+      fi
     fi
-  elif [[ -f /usr/bin/apt ]]; then
-    if [[ ! -f /usr/bin/lsd ]]; then
-      sudo apt install -y lsd
-    else
-      alias ll="lsd -l"
-      alias ls="lsd"
-      alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
-    fi
-    if [[ ! -f /usr/bin/batcat ]]; then
-      sudo apt install -y bat
-    fi
-    if [[ ! -f /usr/bin/fzf ]]; then
-      sudo apt install -y fzf ripgrep
-    else
-      source /usr/share/doc/fzf/examples/key-bindings.zsh
-      source /usr/share/doc/fzf/examples/completion.zsh
-    fi
-    if [[ -f /sbin/bin/nvim ]]; then
-      alias vim="/sbin/bin/nvim"
-    elif [[ -f /usr/bin/nvim ]]; then
-      alias vim="/usr/bin/nvim"
-    fi
-  else
-      echo "Unknown OS"
   fi
+  echo "Uncovered OS"
 fi
 
 if [[ `uname -o` == 'Darwin' ]]; then
