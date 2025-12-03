@@ -117,8 +117,9 @@ else
         alias vim="/usr/bin/nvim"
       fi
     fi
+  else
+    echo "Uncovered OS"
   fi
-  echo "Uncovered OS"
 fi
 
 if [[ `uname -o` == 'Darwin' ]]; then
