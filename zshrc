@@ -71,19 +71,10 @@ else
 
     if [[ -f /usr/bin/yum ]]; then
       if [[ ! -f /bin/bat ]]; then
-        sudo yum install -y bat
+        sudo yum install -y bat ripgrep
       fi
       if [[ ! -f /bin/fzf ]]; then
-        sudo zypper install -y fzf fzf-zsh-integration
-      else
-        source /etc/zsh_completion.d/fzf-key-bindings
-      fi
-      if [[ ! -f /usr/bin/lsd ]]; then
-        sudo zypper install -y lsd
-      else
-        alias ll="lsd -l"
-        alias ls="lsd"
-        alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+        sudo yum install -y fzf
       fi
 
     elif [[ -f /usr/bin/zypper ]]; then
