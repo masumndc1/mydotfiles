@@ -4,6 +4,12 @@
   gather_facts: yes
 
   tasks:
+    - name: Install git-delta package
+      package:
+        name: git-delta
+        state: present
+        update_cache: true
+
     - name: Place gitconfig themes for delta
       copy:
         src: themes_gitconfig
