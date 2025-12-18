@@ -1,21 +1,26 @@
 ---
-- hosts: localhost
+- hosts: localhost:laptops
   become: true
   gather_facts: true
-
 
   tasks:
     - name: Install alacritty terminal
       zypper:
-        name: ['alacritty',
-          'alacritty-zsh-completion']
+        name: ["alacritty", "alacritty-zsh-completion"]
         state: present
         update_cache: true
       when: ansible_distribution == "openSUSE Tumbleweed"
 
+    - name: Install alacritty terminal
+      apt:
+        name: ["alacritty"]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Debian"
+
     - name: Install alacritty in mac by mac ports
       macports:
-        name: ['alacritty']
+        name: ["alacritty"]
         selfupdate: true
         state: present
       when: ansible_distribution == "MacOSX"
