@@ -131,15 +131,13 @@ else
 fi
 
 if [[ `uname -o` == 'Darwin' ]]; then
-  alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
-  alias load_key="ssh-add -s /usr/local/lib/opensc-pkcs11.so"
-  alias unload_key="ssh-add -e /usr/local/lib/opensc-pkcs11.so"
-  alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
-  alias get_pubkey="ssh-keygen -D /usr/local/lib/opensc-pkcs11.so -e"
-  alias sshno="ssh -I /usr/local/lib/opensc-pkcs11.so -o StrictHostKeyChecking=no -F ssh.config"
+  alias sshmine="ssh -I /usr/local/lib/libykcs11.dylib -F ssh.config"
+  alias load_key="ssh-add -s /usr/local/lib/libykcs11.dylib "
+  alias unload_key="ssh-add -e /usr/local/lib/libykcs11.dylib"
+  alias get_pubkey="ssh-keygen -D /usr/local/lib/libykcs11.dylib -e"
+  alias sshno="ssh -I /usr/local/lib/libykcs11.dylib -o StrictHostKeyChecking=no -F ssh.config"
   alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
-  alias myansible="source $HOME/Documents/venv/myansible/bin/activate"
-  alias myprac="source $HOME/Documents/venv/myprac/bin/activate"
+  alias myenv="source $HOME/Documents/venv/myenv/bin/activate"
   alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
 
   if [[ -f /opt/homebrew/bin/nvim ]]; then
