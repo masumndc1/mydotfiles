@@ -71,8 +71,7 @@ else
    sudo port install fzf ripgrep bat
 fi
 
-alias sshmine="ssh -I /usr/local/lib/opensc-pkcs11.so -F ssh.config"
-alias sshno="ssh -F ssh.config -o StrictHostKeyChecking=no"
+alias sshmine="ssh -I /usr/local/lib/libykcs11.dylib -F ssh.config"
 alias load_key="ssh-add -s /usr/local/lib/libykcs11.dylib "
 alias unload_key="ssh-add -e /usr/local/lib/libykcs11.dylib"
 alias get_pubkey="ssh-keygen -D /usr/local/lib/libykcs11.dylib -e"
