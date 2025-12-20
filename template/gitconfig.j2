@@ -1,0 +1,33 @@
+[core]
+   pager = {{ pager }}
+
+[include]
+   path = ~/themes_gitconfig
+
+[pull]
+   rebase = true
+
+[interactive]
+   diffFilter = delta --color-only
+
+[delta]
+   features = {{ delta_theme }}
+   side-by-side = {{ git_side_by_side }}
+   navigate = true
+   light = false
+   line-numbers = true
+
+[merge]
+   conflictstyle = diff3
+
+[diff]
+   colorMoved = default
+
+[color]
+   ui = auto
+
+[log]
+   date = short
+
+[format]
+   pretty = '%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s'
