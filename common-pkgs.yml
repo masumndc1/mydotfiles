@@ -7,22 +7,25 @@
   tasks:
     - name: Install common tools in MacOS
       macports:
-        name: [ 'fd',
-          'alacritty',
-          'tmux',
-          'neovim',
-          'git-delta',
-          'ripgrep',
-          'bat',
-          'lsd',
-          'topgrade',
-          'procs',
-          'skim',
-          'dust',
-          'tealdeer',
-          'zoxide',
-          'monolith',
-          'sd'
+        name:
+          [
+            "fd",
+            "rsync",
+            "alacritty",
+            "tmux",
+            "neovim",
+            "git-delta",
+            "ripgrep",
+            "bat",
+            "lsd",
+            "topgrade",
+            "procs",
+            "skim",
+            "dust",
+            "tealdeer",
+            "zoxide",
+            "monolith",
+            "sd",
           ]
         state: present
         selfupdate: yes
@@ -30,13 +33,16 @@
 
     - name: Install common tools in Opensuse
       zypper:
-        name: [ 'fd',
-          'neovim',
-          'zoxide',
-          'git-delta',
-          'ripgrep',
-          'git',
-          'lazygit'
+        name:
+          [
+            "fd",
+            "rsync",
+            "neovim",
+            "zoxide",
+            "git-delta",
+            "ripgrep",
+            "git",
+            "lazygit",
           ]
         state: present
         update_cache: yes
@@ -44,16 +50,18 @@
 
     - name: Install common tools in Debian
       apt:
-        name: [
-          'neovim',
-          'zoxide',
-          'ripgrep',
-          'git',
-          'python3-venv',
-          'rustc',
-          'python-dev-is-python3',
-          'xclip',
-          'xsel'
+        name:
+          [
+            "rsync",
+            "neovim",
+            "zoxide",
+            "ripgrep",
+            "git",
+            "python3-venv",
+            "rustc",
+            "python-dev-is-python3",
+            "xclip",
+            "xsel",
           ]
         state: present
         update_cache: yes
