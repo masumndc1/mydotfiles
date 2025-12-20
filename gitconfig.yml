@@ -11,6 +11,7 @@
         update_cache: true
 
     - name: Place gitconfig themes for delta
+      become: false
       copy:
         src: themes_gitconfig
         dest: ~/themes_gitconfig
