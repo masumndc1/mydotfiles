@@ -5,6 +5,7 @@ auto-completion = true
 auto-info = true
 line-number = "relative"
 mouse = true
+shell = ["zsh"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -16,13 +17,17 @@ hidden = false
 git-ignore = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name"]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
 center = ["version-control"]
-right = ["diagnostics", "selections", "position", "file-encoding"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
 
 [keys.normal]
 # Vim movement
@@ -32,6 +37,7 @@ k = "move_visual_line_up"
 l = "move_char_right"
 g = "goto_file_start"
 G = "goto_file_end"
+V = 'select_line_below'
 
 # Word movement
 w = "move_next_word_start"
@@ -49,8 +55,8 @@ o = "open_below"
 O = "open_above"
 
 # Delete (like Vim)
-#d = "delete_line"
 x = "delete_char_forward"
+d = { d = ["extend_line_below", "delete_selection"] }
 
 # Yank / paste
 y = "yank"
@@ -73,3 +79,4 @@ esc = "normal_mode"
 
 [editor.lsp]
 display-messages = true
+auto-signature-help = false
