@@ -1,12 +1,57 @@
-theme = "gruvbox"
+theme = "material_deep_ocean"
 [editor]
 line-number = "relative"
 mouse = true
 
 [editor.cursor-shape]
 insert = "bar"
-normal = "hidden"
+normal = "underline"
 select = "block"
 
 [editor.file-picker]
 hidden = false
+
+[keys.normal]
+# Vim movement
+h = "move_char_left"
+j = "move_visual_line_down"
+k = "move_visual_line_up"
+l = "move_char_right"
+
+# Word movement
+w = "move_next_word_start"
+b = "move_prev_word_start"
+e = "move_next_word_end"
+
+# Line movement
+"0" = "goto_line_start"
+"$" = "goto_line_end"
+
+# Insert
+i = "insert_mode"
+a = "append_mode"
+o = "open_below"
+O = "open_above"
+
+# Delete (like Vim)
+#d = "delete_line"
+x = "delete_char_forward"
+
+# Yank / paste
+y = "yank"
+p = "paste_after"
+P = "paste_before"
+
+# Undo / redo
+u = "undo"
+
+# Visual mode
+v = "select_mode"
+
+# Escape
+esc = "normal_mode"
+
+[keys.normal."/"]
+"/" = "search"
+"n" = "search_next"
+"N" = "search_prev"

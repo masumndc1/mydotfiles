@@ -1,9 +1,16 @@
 ---
-- hosts: localhost:lap-lenovo
+- hosts: localhost:lap-lenovo:sys-deb13-dev6
   become: true
   gather_facts: true
 
   tasks:
+    - name: Install helix in MacOS
+      macports:
+        name: ["helix"]
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "MacOSX"
+
     - name: Install helix in debian
       apt:
         name: ["hx"]
@@ -30,4 +37,5 @@
         src: template/helix.j2
         dest: ~/.config/helix/config.toml
         mode: "0644"
-      when: ansible_os_family == "Debian"
+      when: ansible_os_family == "Debian" or
+        ansible_distribution == "MacOSX"
