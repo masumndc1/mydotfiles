@@ -25,7 +25,9 @@
       when: ansible_distribution == "Debian"
 
     - name: Place configuration file for ghostty
+      become: false
       template:
         src: template/ghostty.j2
-        dest: ~/.config/
+        dest: ~/.config/ghostty/config
+        mode: "0644"
       when: ansible_distribution == "Debian"
