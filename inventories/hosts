@@ -74,6 +74,11 @@ sys-deb12-dev5
 sys-deb13-dev5
 sys-ubu22-dev5
 sys-ubu24-dev5
+sys-alma9-dev6
+sys-deb12-dev6
+sys-deb13-dev6
+sys-ubu22-dev6
+sys-ubu24-dev6
 monitoring
 elasticsiem
 kibana
