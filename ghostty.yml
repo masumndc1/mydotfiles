@@ -1,0 +1,31 @@
+---
+- hosts: lap-lenovo
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Add gpg key from griffi for ghostty
+      get_url:
+        url: https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc
+        dest: /etc/apt/trusted.gpg.d/debian.griffo.io.asc
+      when: ansible_distribution == "Debian"
+
+    - name: Add apt repo for ghostty
+      apt_repository:
+        repo: "deb https://debian.griffo.io/apt {{ ansible_facts['distribution_release'] }} main"
+        state: present
+        filename: "debian.griffi.io"
+      when: ansible_distribution == "Debian"
+
+    - name: Install ghostty and related packages
+      apt:
+        name: ["zig", "ghostty", "yazi"]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Debian"
+
+    - name: Place configuration file for ghostty
+      template:
+        src: template/ghostty.j2
+        dest: ~/.config/
+      when: ansible_distribution == "Debian"
