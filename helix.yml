@@ -31,7 +31,7 @@
         update_cache: true
       when: ansible_distribution == "Ubuntu"
 
-    - name: Place configuration file for ghostty
+    - name: Place configuration file for helix
       become: false
       template:
         src: template/helix.j2
