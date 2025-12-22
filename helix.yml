@@ -1,0 +1,33 @@
+---
+- hosts: lap-lenovo
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install helix in debian
+      apt:
+        name: ["hx"]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Debian"
+
+    - name: Add apt repo for helix
+      apt_repository:
+        repo: "ppa:maveonair/helix-editor"
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install helix
+      apt:
+        name: ["helix"]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Place configuration file for ghostty
+      become: false
+      template:
+        src: template/helix.j2
+        dest: ~/.config/helix/config.toml
+        mode: "0644"
+      when: ansible_os_family == "Debian"
