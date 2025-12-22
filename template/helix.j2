@@ -1,5 +1,8 @@
 theme = "material_deep_ocean"
 [editor]
+true-color = true
+auto-completion = true
+auto-info = true
 line-number = "relative"
 mouse = true
 
@@ -10,6 +13,16 @@ select = "block"
 
 [editor.file-picker]
 hidden = false
+git-ignore = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name"]
+center = ["version-control"]
+right = ["diagnostics", "selections", "position", "file-encoding"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [keys.normal]
 # Vim movement
@@ -17,6 +30,8 @@ h = "move_char_left"
 j = "move_visual_line_down"
 k = "move_visual_line_up"
 l = "move_char_right"
+g = "goto_file_start"
+G = "goto_file_end"
 
 # Word movement
 w = "move_next_word_start"
@@ -55,3 +70,6 @@ esc = "normal_mode"
 "/" = "search"
 "n" = "search_next"
 "N" = "search_prev"
+
+[editor.lsp]
+display-message = true
