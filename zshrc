@@ -166,6 +166,7 @@ setopt hist_ignore_space     # don’t record commands starting with space
 setopt share_history         # share history across sessions
 setopt append_history        # append instead of overwrite
 #autoload -Uz compinit && compinit
-
+#
+printf '\e[4 q'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
