@@ -31,11 +31,20 @@
         update_cache: true
       when: ansible_distribution == "Ubuntu"
 
-    - name: Place configuration file for helix
+    - name: Place configuration toml file for helix
       become: false
       template:
         src: template/helix.j2
         dest: ~/.config/helix/config.toml
+        mode: "0644"
+      when: ansible_os_family == "Debian" or
+        ansible_distribution == "MacOSX"
+
+    - name: Place language conf toml for helix
+      become: false
+      template:
+        src: template/languages.j2
+        dest: ~/.config/helix/languages.toml
         mode: "0644"
       when: ansible_os_family == "Debian" or
         ansible_distribution == "MacOSX"
