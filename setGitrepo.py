@@ -15,7 +15,7 @@ def mydir():
     if os.path.exists(gitdir):
         return gitdir
     else:
-        sys.exit("~/Documents/github does not exists")
+        sys.exit(gitdir + " does not exists")
 
 
 def git_repo(repo):
