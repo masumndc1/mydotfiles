@@ -10,7 +10,7 @@
         name: [ "i3", "dmenu", "i3status" ]
         state: present
         update_cache: true
-      when: ansible_os_family == "SUSE"
+      when: ansible_os_family == "Suse"
 
     - name: Install i3 in debian varient
       ansible.builtin.apt:
