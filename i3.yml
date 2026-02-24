@@ -7,10 +7,10 @@
   tasks:
     - name: Install i3 in opensuse
       community.general.zypper:
-        name: i3
+        name: [ "i3", "dmenu", "i3status" ]
         state: present
         update_cache: true
-      when: ansible_distribution == "openSUSE Tumbleweed"
+      when: ansible_os_family == "SUSE"
 
     - name: Install i3 in debian varient
       ansible.builtin.apt:
