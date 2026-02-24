@@ -9,7 +9,7 @@
         name: ["alacritty", "alacritty-zsh-completion"]
         state: present
         update_cache: true
-      when: ansible_distribution == "openSUSE Tumbleweed"
+      when: ansible_os_family == "Suse"
 
     - name: Install alacritty terminal
       apt:
