@@ -7,7 +7,7 @@
   tasks:
     - name: Install i3 in opensuse
       community.general.zypper:
-        name: [ "i3", "dmenu", "i3status" ]
+        name: [ "i3", "dmenu", "i3status", "rofi" ]
         state: present
         update_cache: true
       when: ansible_os_family == "Suse"
