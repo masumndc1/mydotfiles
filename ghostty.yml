@@ -17,12 +17,19 @@
         filename: "debian.griffi.io"
       when: ansible_distribution == "Debian"
 
-    - name: Install ghostty and related packages
+    - name: Install ghostty and related packages in debian
       apt:
         name: ["zig", "ghostty", "yazi"]
         state: present
         update_cache: true
       when: ansible_distribution == "Debian"
+
+    - name: Install ghostty and related packages in suse
+      zypper:
+        name: ["zig", "ghostty"]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Suse"
 
     - name: Place configuration file for ghostty
       become: false
@@ -30,4 +37,5 @@
         src: template/ghostty.j2
         dest: ~/.config/ghostty/config
         mode: "0644"
-      when: ansible_distribution == "Debian"
+      when: ansible_distribution == "Debian" or
+            ansible_os_family == "Suse"
