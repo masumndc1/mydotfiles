@@ -31,6 +31,13 @@
         update_cache: true
       when: ansible_distribution == "Ubuntu"
 
+    - name: Install helix
+      zypper:
+        name: ["helix"]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Suse"
+
     - name: Place configuration toml file for helix
       become: false
       template:
@@ -38,7 +45,8 @@
         dest: ~/.config/helix/config.toml
         mode: "0644"
       when: ansible_os_family == "Debian" or
-        ansible_distribution == "MacOSX"
+        ansible_distribution == "MacOSX" or
+        ansible_os_family == "Suse"
 
     - name: Place language conf toml for helix
       become: false
@@ -47,4 +55,5 @@
         dest: ~/.config/helix/languages.toml
         mode: "0644"
       when: ansible_os_family == "Debian" or
-        ansible_distribution == "MacOSX"
+        ansible_distribution == "MacOSX" or
+        ansible_os_family == "Suse"
