@@ -5,5 +5,5 @@
 
 if [[ $(uname) == "Linux" ]]; then
   echo -n "run this as root user"
-  cp fonts/terminus/*.ttf /usr/share/fonts
+  cp fonts/Terminus/*.ttf /usr/share/fonts
 fi
