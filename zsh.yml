@@ -17,8 +17,7 @@
       become: true
       package:
         name: ["zsh", "curl", "git"]
-        state: present
-        update_cache: true
+        state: latest
       when: ansible_os_family != "Darwin"
 
     - name: change user shell to zsh
@@ -26,6 +25,15 @@
       user:
         name: "{{ the_user }}"
         shell: /bin/zsh
+      when: ( ansible_os_family != "Darwin"
+        and ansible_os_family != "FreeBSD" )
+
+    - name: change user shell to zsh in freebsd
+      become: true
+      user:
+        name: "{{ the_user }}"
+        shell: /usr/local/bin/zsh
+      when: ansible_os_family != "FreeBSD"
 
     - name: set zshrc file
       template:
