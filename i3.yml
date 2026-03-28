@@ -10,7 +10,8 @@
         name: [ "i3", "dmenu", "i3status", "rofi" ]
         state: present
         update_cache: true
-      when: ansible_os_family == "Suse"
+      when: ansible_os_family == "SUSE"
+      tags: pkg
 
     - name: Install i3 in debian varient
       ansible.builtin.apt:
@@ -19,6 +20,14 @@
         update_cache: true
       when: ansible_distribution == "Debian" or
         ansible_distribution == "Ubuntu"
+      tags: pkg
+
+    - name: Install i3 in freebsd varient
+      pkgng:
+        name: ["i3", "i3status", "i3lock", "dmenu", "slim", "slim-themes", "xorg"]
+        state: present
+      when: ansible_os_family == "FreeBSD"
+      tags: pkg
 
     - name: create dot config directory
       become: false
@@ -58,3 +67,53 @@
         update_cache: true
       when: ansible_distribution == "Debian" or
         ansible_distribution == "Ubuntu"
+      tags: pkg
+
+    - name: install some additional packages in freebsd
+      pkgng:
+        name:
+          [
+            "konsole",
+            "firefox-esr",
+            "falkon",
+            "alacritty",
+            "neovim",
+            "thunar",
+            "tmux",
+            "git",
+            "curl",
+            "lua54",
+          ]
+        state: present
+      when: ansible_os_family == "FreeBSD"
+      tags: pkg
+
+    - name: install some vga drivers in freebsd
+      pkgng:
+        name:
+          [
+            "xf86-video-intel",
+            "xf86-video-vesa",
+          ]
+        state: present
+      when: ansible_os_family == "FreeBSD"
+      tags: pkg
+
+    - name: enable slim in freebsd
+      community.general.sysrc:
+        name: "{{ item }}"
+        value: "YES"
+      with_items:
+        - slim_enable
+        - dbus_enable
+      when: ansible_os_family == "FreeBSD"
+
+    - name: start service in freebsd
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items:
+        - dbus
+        - slim
+      when: ansible_os_family == "FreeBSD"
