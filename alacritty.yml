@@ -9,7 +9,7 @@
         name: ["alacritty", "alacritty-zsh-completion"]
         state: present
         update_cache: true
-      when: ansible_os_family == "Suse"
+      when: ansible_os_family == "SUSE"
 
     - name: Install alacritty terminal
       apt:
@@ -17,6 +17,7 @@
         state: present
         update_cache: true
       when: ansible_distribution == "Debian"
+        and ansible_architecture != "i386"
 
     - name: Install alacritty in mac by mac ports
       macports:
