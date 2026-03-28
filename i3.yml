@@ -63,6 +63,8 @@
             "lua5.4",
             "snapd",
             "htop",
+            "rsync",
+            "rofi",
           ]
         state: present
         update_cache: true
