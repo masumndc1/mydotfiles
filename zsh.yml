@@ -5,6 +5,9 @@
     the_user: "{{ ansible_user_id }}"
 
   tasks:
+    - name: get infos of all installed packages
+      ansible.builtin.package_facts:
+
     - name: install zsh and others packages in MacOS
       become: true
       macports:
@@ -24,16 +27,18 @@
       become: true
       user:
         name: "{{ the_user }}"
-        shell: /bin/zsh
+        shell: /usr/bin/zsh
       when: ( ansible_os_family != "Darwin"
         and ansible_os_family != "FreeBSD" )
+        and ( 'zsh' in ansible_facts.packages )
 
     - name: change user shell to zsh in freebsd
       become: true
       user:
         name: "{{ the_user }}"
         shell: /usr/local/bin/zsh
-      when: ansible_os_family != "FreeBSD"
+      when: ansible_os_family == "FreeBSD"
+        and ('zsh' in ansible_facts.packages )
 
     - name: set zshrc file
       template:
