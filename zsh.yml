@@ -7,6 +7,7 @@
   tasks:
     - name: get infos of all installed packages
       ansible.builtin.package_facts:
+      when: ansible_os_family != "Darwin"
 
     - name: install zsh and others packages in MacOS
       become: true
