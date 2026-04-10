@@ -176,7 +176,6 @@ source /usr/share/doc/fzf/examples/completion.zsh
 {% endif %}
 
 if [[ -d $HOME/Documents/venv ]]; then
-alias myenv="source $HOME/Documents/venv/ansible/bin/activate"
 alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
 alias testenv="source $HOME/Documents/venv/testenv/bin/activate"
 fi
@@ -195,6 +194,40 @@ setopt hist_ignore_dups      # don’t record duplicate commands
 setopt hist_ignore_space     # don’t record commands starting with space
 setopt share_history         # share history across sessions
 setopt append_history        # append instead of overwrite
+
+search() {
+  [[ "$PWD" == "$HOME" ]] && echo "Error: Dont run In HOME" && return
+  local sel f l
+  # Phase 1: Search for files containing the string or matching by name
+  while sel=$( {
+{% if ansible_architecture == "i386" %}
+    grep -rl "" . --exclude-dir=".git" 2>/dev/null
+{% else %}
+    rg --files-with-matches --smart-case "" .
+{% endif %}
+    find . -maxdepth 2 -type f -not -path '*/.*'
+  } | sort -u | fzf --preview 'bat --color=always {}' \
+    --header "ENTER: View Content | ESC: Exit"); [[ -n "$sel" ]]; do
+
+    f=$(echo "$sel")
+    # Phase 2: Search INSIDE the selected file
+{% if ansible_architecture == "i386" %}
+    l=$(grep -n "" "$f" | fzf --delimiter : \
+      --preview "cat $f" \
+{% else %}
+    l=$(rg --color=always --line-number --no-heading "" "$f" | fzf \
+      --ansi --delimiter : \
+      --preview "bat --color=always --highlight-line {1} $f" \
+{% endif %}
+      --header "ENTER: Edit | ESC: Back to File List" --bind "esc:abort")
+
+    if [[ -n "$l" ]]; then
+      # Open editor at the specific line
+      ${EDITOR:-vim} "+$(echo "$l" | cut -d: -f1)" "$f"
+      break
+    fi
+  done
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
