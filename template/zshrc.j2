@@ -196,37 +196,42 @@ setopt share_history         # share history across sessions
 setopt append_history        # append instead of overwrite
 
 search() {
-  [[ "$PWD" == "$HOME" ]] && echo "Error: Dont run In HOME" && return
-  local sel f l
-  # Phase 1: Search for files containing the string or matching by name
-  while sel=$( {
+  [[ "$PWD" == "$HOME" ]] && echo "Error: In HOME" && return
+  local sel f l opened_file
 {% if ansible_architecture == "i386" %}
-    grep -rl "" . --exclude-dir=".git" 2>/dev/null
-{% else %}
-    rg --files-with-matches --smart-case "" .
-{% endif %}
-    find . -maxdepth 2 -type f -not -path '*/.*'
-  } | sort -u | fzf --preview 'bat --color=always {}' \
-    --header "ENTER: View Content | ESC: Exit"); [[ -n "$sel" ]]; do
-
-    f=$(echo "$sel")
-    # Phase 2: Search INSIDE the selected file
-{% if ansible_architecture == "i386" %}
+  # Phase 1: Unique filenames, but fzf searches their content via 'grep'
+  while sel=$(find . -maxdepth 2 -type f -not -path '*/.*' | fzf \
+    --header "Search FILE or CONTENT | ENTER: Drill Down" \
+    --preview 'cat {}' \
+    --phony --query "" \
+    --bind "change:reload(grep -rl {q} . || find . -maxdepth 2 -type f)"); \
+    [[ -n "$sel" ]]; do
+    f=$(echo "$sel" | tr -d '\n')
+    # Phase 2: Find the exact line
     l=$(grep -n "" "$f" | fzf --delimiter : \
       --preview "cat $f" \
+      --header "Inside: $f | ESC: Back" \
+      --bind "esc:abort")
 {% else %}
-    l=$(rg --color=always --line-number --no-heading "" "$f" | fzf \
-      --ansi --delimiter : \
-      --preview "bat --color=always --highlight-line {1} $f" \
-{% endif %}
-      --header "ENTER: Edit | ESC: Back to File List" --bind "esc:abort")
+  while sel=$(fzf --phony --query "" \
+    --bind "start:reload(fd --max-depth 2 --type f)" \
+    --bind "change:reload(rg -l --smart-case {q} || fd --max-depth 2 --type f {q})" \
+    --preview "bat --color=always {1}" \
+    --header "Type CONTENT or FILE | ENTER: Select | ESC: Exit"); [[ -n "$sel" ]]; do
+    f=$(echo "$sel" | tr -d '\n')
+    l=$(rg --line-number --color=always --smart-case "" "$f" | fzf --ansi \
+      --delimiter : --preview "bat --color=always --highlight-line {1} $f" \
+      --header "Inside: $f | ESC: Back" --bind "esc:abort")
 
+{% endif %}
     if [[ -n "$l" ]]; then
-      # Open editor at the specific line
-      ${EDITOR:-vim} "+$(echo "$l" | cut -d: -f1)" "$f"
+      opened_file="$f"
+      hx "+$(echo "$l" | cut -d: -f1)" "$f"
       break
     fi
   done
+  # Print the filename if one was actually opened
+  [[ -n "$opened_file" ]] && echo "$opened_file"
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
