@@ -180,7 +180,11 @@ alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
 alias testenv="source $HOME/Documents/venv/testenv/bin/activate"
 fi
 
+{% if ansible_architecture == "i386" %}
+alias fp="fzf --preview 'pygmentize -g {} | head -n 500 {}'"
+{% else %}
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+{% endif %}
 alias gig="git log --all --decorate --oneline --graph"
 alias cdiff="diff --suppress-common-lines --side-by-side --color=always"
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files -g "!.git/"'
