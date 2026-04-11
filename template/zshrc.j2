@@ -226,7 +226,11 @@ search() {
 {% endif %}
     if [[ -n "$l" ]]; then
       opened_file="$f"
+{% if ansible_architecture == "i386" %}
+      vim "+$(echo "$l" | cut -d: -f1)" "$f"
+{% else %}
       hx "+$(echo "$l" | cut -d: -f1)" "$f"
+{% endif %}
       break
     fi
   done
