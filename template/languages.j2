@@ -14,3 +14,15 @@ args = ["server"]
 [language.formatter]
 command = "ruff"
 args = ["format", "-"]
+
+[[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = ["-"] }
+
+[[language]]
+name = "puppet"
+scope = "source.puppet"
+file-types = ["pp"]
+formatter = { command = "/usr/local/bin/puppet-lint", args = ["--fix", "{file}"]}
+auto-format = true
