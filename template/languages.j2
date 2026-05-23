@@ -26,3 +26,11 @@ scope = "source.puppet"
 file-types = ["pp"]
 formatter = { command = "/usr/local/bin/puppet-lint", args = ["--fix", "{file}"]}
 auto-format = true
+
+[[language]]
+name = "c"
+language-servers = [ "clangd" ]
+auto-format = true
+
+[language-server.clangd]
+command = "/usr/bin/clangd"
