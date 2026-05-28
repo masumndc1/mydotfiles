@@ -1,0 +1,62 @@
+-- 1. Essential Editor Settings
+local opt = vim.opt
+opt.number = true
+opt.relativenumber = true
+opt.mouse = 'a'
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.signcolumn = "yes"
+vim.g.mapleader = " "
+opt.statusline = " %f %m │ %y %= Line: %l/%L │ Col: %c "
+vim.cmd("highlight clear SignColumn")
+opt.hlsearch = true        -- Highlight all matching search patterns
+opt.incsearch = true       -- Highlight matches dynamically as you type your search
+opt.scrolloff = 8          -- Always keep 8 visible lines above/below your cursor
+opt.sidescrolloff = 8      -- Always keep 8 visible characters to the left/right
+opt.updatetime = 300       -- Speeds up LSP responsiveness (default is 4000ms)
+opt.swapfile = false       -- Disables .swp files (saves disk I/O on older drives)
+opt.backup = false         -- Disables automated backups before saving
+opt.writebackup = false    -- Protects files while writing without storing bloat
+opt.wrap = false           -- Disable line wrapping (keeps long C code on a single line)
+opt.clipboard = "unnamedplus" -- Syncs Neovim's clipboard directly with your system clipboard
+opt.cindent = true         -- Enables smart built-in C language indentation rules
+opt.cinoptions = "g0,t0,(0" -- Adjusts brace and switch/case alignment to standard C styles
+opt.formatoptions:remove("t") -- Stops Neovim from forcing long lines of code to split on spaces
+opt.formatoptions:append("c") -- Automatically inserts the comment leader (*) when pressing Enter inside a comment block
+opt.textwidth = 80
+opt.path:append({ "/usr/include", "include" }) -- Looks inside system and local folders for header links
+opt.suffixesadd:append({ ".c", ".h", ".cpp", ".hpp" }) -- Automatically fills in file extensions if missing
+
+-- 2. Activate C/C++ LSP Natively
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function(args)
+    if vim.fn.executable("clangd") == 1 then
+      local id = vim.lsp.start_client({ name = "clangd", cmd = { "clangd" }, root_dir = vim.fn.getcwd() })
+      if id then vim.lsp.buf_attach_client(args.buf, id) end
+    end
+  end,
+})
+
+-- 3. Auto-Format Code Every Time You Save (:w)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.c", "*.h", "*.cpp", "*.hpp" },
+  callback = function()
+    -- Compatibility fallback for older Neovim v0.7 versions
+    if vim.lsp.buf.format then vim.lsp.buf.format({ async = false }) else vim.lsp.buf.formatting_sync() end
+  end,
+})
+
+-- 4. Essential Keybindings
+vim.keymap.set("n", "gd", vim.lsp.buf.definition) -- Jump to definition
+vim.keymap.set("n", "K", vim.lsp.buf.hover)       -- View function docs/signature
+
+-- Jump to next/previous syntax errors or warnings
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+-- Show the full error message in a floating window
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+
+-- Press F5 to save, compile with GCC, and run the current C file instantly
+vim.keymap.set("n", "<F5>", ":w<CR>:!gcc % -o %< -Wall -Wextra && ./%<<CR>")
