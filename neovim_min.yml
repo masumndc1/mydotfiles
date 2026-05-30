@@ -1,0 +1,27 @@
+---
+- hosts: localhost:compute:incus:laptops
+  become: yes
+  gather_facts: yes
+  ignore_errors: yes
+
+  tasks:
+    - name: Install requisits packages
+      apt:
+        name: [ 'unzip',
+          'python3-venv',
+          'git',
+          'neovim',
+          'clang'
+          ]
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "Debian" and
+            ansible_architecture == "i386"
+
+    - name: Place init file for neovim
+      become: false
+      template:
+        src: template/nvim_minimum.j2
+        dest: ~/.config/nvim/init.lua
+      when: ansible_os_family == "Debian" and
+            ansible_architecture == "i386"
