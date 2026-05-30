@@ -249,11 +249,15 @@ search() {
   [[ -n "$opened_file" ]] && echo "$opened_file"
 }
 
+{% if ansible_os_family == "Darwin" %}
 if [[ -f "$HOME/.local/bin/ohcrab" ]]; then
+{% else %}
+if [[ -f "/usr/local/bin/ohcrab" ]]; then
   eval $(ohcrab --shell zsh --alias cr)
 else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/luizvbo/oh-crab/main/install.sh)"
 fi
+{% endif %}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
