@@ -49,6 +49,11 @@
             "git",
             "lua-language-server",
             "lua51-luarocks",
+            "fzf",
+            "ruff",
+            "stylua",
+            "uv",
+            "python311-ty",
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
