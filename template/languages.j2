@@ -33,4 +33,8 @@ language-servers = [ "clangd" ]
 auto-format = true
 
 [language-server.clangd]
+{% if ansible_os_family == "FreeBSD" %}
+command = "/usr/local/bin/clangd"
+{% else %}
 command = "/usr/bin/clangd"
+{% endif %}
