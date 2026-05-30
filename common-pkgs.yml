@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:compute:laptops
+- hosts: localhost:compute:laptops:incus
   become: true
   gather_facts: yes
   ignore_errors: true
@@ -30,6 +30,28 @@
         state: present
         selfupdate: yes
       when: ansible_distribution == "MacOSX"
+
+    - name: Install common tools in FreeBSD
+      pkgng:
+        name:
+          [
+            "fd",
+            "rsync",
+            "neovim",
+            "ripgrep",
+            "bat",
+            "lsd",
+            "zoxide",
+            "tree-sitter",
+            "tree-sitter-cli",
+            "gmake",
+            "gcc",
+            "git",
+            "lua-language-server",
+            "lua51-luarocks",
+          ]
+        state: present
+      when: ansible_distribution == "FreeBSD"
 
     - name: Install common tools in Opensuse
       zypper:
