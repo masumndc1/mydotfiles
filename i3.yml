@@ -29,7 +29,7 @@
       when: ansible_os_family == "FreeBSD"
       tags: pkg
 
-    - name: create dot config directory
+    - name: create i3 dot config directory
       become: false
       file:
         path: ~/.config/i3
@@ -65,6 +65,8 @@
             "htop",
             "rsync",
             "rofi",
+            "i3status",
+            "dmenu"
           ]
         state: present
         update_cache: true
@@ -86,6 +88,8 @@
             "git",
             "curl",
             "lua54",
+            "i3status",
+            "dmenu",
           ]
         state: present
       when: ansible_os_family == "FreeBSD"
@@ -120,3 +124,41 @@
         - dbus
         - slim
       when: ansible_os_family == "FreeBSD"
+
+    - name: create i3status dot config directory
+      become: false
+      file:
+        path: ~/.config/i3status
+        mode: "0755"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: true
+
+    - name: Copy i3 status config
+      become: false
+      template:
+        src: template/i3status.j2
+        dest: ~/.config/i3status/config
+        mode: "0644"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: create rofi dot config directory
+      become: false
+      file:
+        path: ~/.config/rofi
+        mode: "0755"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: true
+
+    - name: Copy rofi config
+      become: false
+      template:
+        src: template/rofi_config.j2
+        dest: "~/.config/rofi/config.rasi"
+        mode: "0644"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
