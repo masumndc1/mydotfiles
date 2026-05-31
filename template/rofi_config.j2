@@ -1,0 +1,97 @@
+configuration {
+    modi:                       "drun,run";
+    show-icons:                 true;
+    display-drun:               "🔍";
+    drun-display-format:        "{name}";
+    font:                       "JetBrains Mono Nerd Font 11";
+}
+
+* {
+    bg-col:  #1e1e2e;
+    bg-alt:  #252538;
+    fg-col:  #cdd6f4;
+    accent:  #89b4fa;
+    urgent:  #f38ba8;
+
+    background-color: transparent;
+    text-color:       @fg-col;
+    margin:           0;
+    padding:          0;
+}
+
+window {
+    transparency:        "real";
+    background-color:    @bg-col;
+    text-color:          @fg-col;
+    border:              0px;
+    border-radius:       12px;
+    width:               600px;
+    location:            center;
+    anchor:              center;
+    x-offset:            0;
+    y-offset:            0;
+}
+
+mainbox {
+    background-color:    transparent;
+    children:            [ inputbar, listview ];
+    padding:             24px;
+}
+
+inputbar {
+    background-color:    @bg-alt;
+    text-color:          @fg-col;
+    border-radius:       8px;
+    padding:             10px 16px;
+    margin:              0px 0px 16px 0px;
+    children:            [ prompt, entry ];
+}
+
+prompt {
+    background-color:    transparent;
+    text-color:          @accent;
+    margin:              0px 10px 0px 0px;
+}
+
+entry {
+    background-color:    transparent;
+    text-color:          @fg-col;
+    placeholder:         "Search applications...";
+    placeholder-color:   #6c7086;
+}
+
+listview {
+    background-color:    transparent;
+    columns:             1;
+    lines:               7;
+    cycle:               true;
+    dynamic:             true;
+    layout:              vertical;
+    fixed-height:        true;
+}
+
+element {
+    background-color:    transparent;
+    text-color:          @fg-col;
+    orientation:         horizontal;
+    border-radius:       6px;
+    padding:             8px 12px;
+}
+
+element-icon {
+    background-color:    transparent;
+    size:                24px;
+    margin:              0px 12px 0px 0px;
+}
+
+element-text {
+    background-color:    transparent;
+    text-color:          inherit;
+    vertical-align:      0.5;
+}
+
+element selected {
+    background-color:    @bg-alt;
+    text-color:          @accent;
+}
+
