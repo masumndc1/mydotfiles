@@ -30,19 +30,26 @@
         state: present
       when: ansible_distribution == "Ubuntu"
 
-    - name: Install helix
+    - name: Install helix in Ubuntu
       apt:
         name: ["helix"]
         state: present
         update_cache: true
       when: ansible_distribution == "Ubuntu"
 
-    - name: Install helix
+    - name: Install helix in suse
       zypper:
         name: ["helix"]
         state: present
         update_cache: true
       when: ansible_os_family == "Suse"
+
+    - name: Install helix in RedHat family
+      yum:
+        name: ["helix"]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "RedHat"
 
     - name: Place configuration toml file for helix
       become: false
@@ -53,7 +60,8 @@
       when: ansible_os_family == "Debian" or
         ansible_distribution == "MacOSX" or
         ansible_os_family == "Suse" or
-        ansible_os_family == "FreeBSD"
+        ansible_os_family == "FreeBSD" or
+        ansible_os_family == "RedHat"
 
     - name: Place language conf toml for helix
       become: false
@@ -64,4 +72,5 @@
       when: ansible_os_family == "Debian" or
         ansible_distribution == "MacOSX" or
         ansible_os_family == "Suse" or
-        ansible_os_family == "FreeBSD"
+        ansible_os_family == "FreeBSD" or
+        ansible_os_family == "RedHat"
