@@ -40,6 +40,11 @@ fi
 {% if ansible_system == "Darwin" %}
 export CURL_SSL_BACKEND="secure-transport"
 
+if [[ -f /opt/homebrew/bin/go ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  export PATH="$HOME/go/bin:$PATH"
+fi
+
 if [[ ! -f /opt/local/bin/zoxide ]]; then
   sudo port install zoxide
 else
