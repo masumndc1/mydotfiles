@@ -89,8 +89,6 @@ alias unload_key="ssh-add -e /usr/local/lib/libykcs11.dylib"
 alias get_pubkey="ssh-keygen -D /usr/local/lib/libykcs11.dylib -e"
 alias sshno="ssh -I /usr/local/lib/libykcs11.dylib -o StrictHostKeyChecking=no -F ssh.config"
 alias pyenv="source $HOME/Documents/venv/pyenv/bin/activate"
-alias myenv="source $HOME/Documents/venv/myenv/bin/activate"
-alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
 
 if [[ -f /opt/homebrew/bin/nvim ]]; then
   alias vim="/opt/homebrew/bin/nvim"
@@ -187,9 +185,18 @@ source /usr/share/doc/fzf/examples/completion.zsh
 {% endif %}
 {% endif %}
 
-if [[ -d $HOME/Documents/venv ]]; then
+if [[ -f $HOME/Documents/venv/ipython3/bin/activate ]]; then
 alias ipython3="source $HOME/Documents/venv/ipython3/bin/activate"
-alias testenv="source $HOME/Documents/venv/testenv/bin/activate"
+else
+  mkdir -p $HOME/Downloads/venv/ipython3
+  cd $HOME/Downloads/venv/ipython3
+  python3 -m venv ipython3
+fi
+
+if [[ -f $HOME/Documents/venv/myenv/bin/activate ]]; then
+alias ipython3="source $HOME/Documents/venv/myenv/bin/activate"
+else
+  mkdir -p $HOME/Downloads/venv/myenv
 fi
 
 {% if ansible_architecture == "i386" %}
