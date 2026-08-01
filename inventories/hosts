@@ -21,6 +21,7 @@ lap-acer
 lap-asus
 lap-lenovo
 lap-macmini
+lap-thinkpad
 
 [jenkins]
 jenkin
@@ -91,6 +92,7 @@ lap-acer
 lap-asus
 lap-lenovo
 lap-macmini
+lap-thinkpad
 
 [jumphosts]
 jumphost
