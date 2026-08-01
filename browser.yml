@@ -1,0 +1,24 @@
+---
+- hosts: laptops
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Add gpg key for brave browser
+      get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+      when: ansible_distribution == "Debian"
+
+    - name: Get source list brave browser
+      get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+        dest: /etc/apt/sources.list.d/brave-browser-release.sources
+      when: ansible_distribution == "Debian"
+
+    - name: Install brave and falkon browser and curl
+      apt:
+        name: [ 'brave-browser', 'falkon', 'curl', 'chromium', 'epiphany-browser', ]
+        state: present
+        update_cache: true
+      when: ansible_distribution == "Debian"
