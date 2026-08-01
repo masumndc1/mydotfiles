@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:incus:lap-lenovo:sys-deb13-dev6
+- hosts: localhost:incus:laptops:sys-deb13-dev6
   become: true
   gather_facts: true
 

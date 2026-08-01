@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: localhost:laptops
   become: true
   gather_facts: yes
 

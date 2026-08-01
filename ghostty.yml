@@ -1,5 +1,5 @@
 ---
-- hosts: localhost:lap-lenovo
+- hosts: localhost:laptops
   become: true
   gather_facts: true
 
