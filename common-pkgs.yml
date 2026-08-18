@@ -35,7 +35,7 @@
       pkgng:
         name:
           [
-            "fd",
+            "fd-find",
             "rsync",
             "neovim",
             "ripgrep",
@@ -50,10 +50,10 @@
             "lua-language-server",
             "lua51-luarocks",
             "fzf",
-            "ruff",
+            "py312-ruff",
             "stylua",
             "uv",
-            "python311-ty",
+            "py312-ty",
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
