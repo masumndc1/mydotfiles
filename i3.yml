@@ -78,7 +78,8 @@
       pkgng:
         name:
           [
-            "falkon",
+            "htop",
+            "sterm",
             "alacritty",
             "neovim",
             "thunar",
@@ -88,6 +89,7 @@
             "lua54",
             "i3status",
             "dmenu",
+            "python3",
           ]
         state: present
       when: ansible_os_family == "FreeBSD"
