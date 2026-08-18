@@ -78,8 +78,6 @@
       pkgng:
         name:
           [
-            "konsole",
-            "firefox-esr",
             "falkon",
             "alacritty",
             "neovim",
