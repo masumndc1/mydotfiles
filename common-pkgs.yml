@@ -36,6 +36,11 @@
         name:
           [
             "fd-find",
+            "sterm",
+            "surf-browser",
+            "htop",
+            "cmake",
+            "gmake",
             "rsync",
             "neovim",
             "ripgrep",
@@ -54,6 +59,7 @@
             "stylua",
             "uv",
             "py312-ty",
+            "python3",
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
