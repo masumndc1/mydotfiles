@@ -30,9 +30,9 @@ def install_pkgs():
 
         if pkg == "ripgrep":
             pkg_location = pkg_path + "rg"
-        elif "Darwin" in platform.system() and pkg == "fzf":
-            continue
-        elif os.path.exists("/usr/bin/zypper") and pkg == "exa":
+        elif ("Darwin" in platform.system() and pkg == "fzf") or (
+            os.path.exists("/usr/bin/zypper") and pkg == "exa"
+        ):
             continue
         else:
             pkg_location = pkg_path + pkg
