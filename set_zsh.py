@@ -2,10 +2,9 @@
 
 import os
 import platform
+import sys
 from shutil import copy
 from subprocess import check_call as call
-import sys
-
 
 home = os.path.expanduser("~")
 pkgs = {"bat", "fzf", "ripgrep", "exa", "tig", "lsd"}

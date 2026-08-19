@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import requests
+import sys
 from shutil import copy
 from subprocess import check_call as call
-import sys
 
+import requests
 
 home = os.path.expanduser("~")
 vim_plug_loc = ["https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"]
