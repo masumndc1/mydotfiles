@@ -2,10 +2,9 @@
 
 import os
 import requests
-import sys
-
+from shutil import copy
 from subprocess import check_call as call
-from shutil import copy as copy
+import sys
 
 
 home = os.path.expanduser("~")
