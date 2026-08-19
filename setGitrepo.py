@@ -21,7 +21,7 @@ def mydir():
 def git_repo(repo):
     user = USER
     # subprocess.call("git clone git@github.com:{}/{}.git".format(user, repo))
-    cmd = "git clone https://github.com/{}/{}.git".format(user, repo)
+    cmd = f"git clone https://github.com/{user}/{repo}.git"
     subprocess.call(cmd, cwd=os.chdir(mydir()), shell=True)
 
 

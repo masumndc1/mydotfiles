@@ -3,8 +3,7 @@
 import os
 import platform
 import sys
-
-from shutil import copy as cp
+from shutil import copy
 from subprocess import check_call as call
 
 home = os.path.expanduser("~")
@@ -16,10 +15,10 @@ def set_zsh(file):
     backup_zsh_conf = home + "/." + file + ".bk"
 
     if os.path.exists(location_zsh_conf):
-        cp(location_zsh_conf, backup_zsh_conf)
-        cp(file, location_zsh_conf)
+        copy(location_zsh_conf, backup_zsh_conf)
+        copy(file, location_zsh_conf)
     else:
-        cp(file, location_zsh_conf)
+        copy(file, location_zsh_conf)
 
 
 def install_pkgs():
@@ -31,21 +30,21 @@ def install_pkgs():
 
         if pkg == "ripgrep":
             pkg_location = pkg_path + "rg"
-        elif "Darwin" in platform.system() and pkg == "fzf":
-            continue
-        elif os.path.exists("/usr/bin/zypper") and pkg == "exa":
+        elif ("Darwin" in platform.system() and pkg == "fzf") or (
+            os.path.exists("/usr/bin/zypper") and pkg == "exa"
+        ):
             continue
         else:
             pkg_location = pkg_path + pkg
 
         if not os.path.exists(pkg_location):
             if "Darwin" in platform.system():
-                call("sudo port install -y {}".format(pkg), shell=True)
+                call(f"sudo port install -y {pkg}", shell=True)
             elif "OpenSuse" in platform.system() or os.path.exists("/usr/bin/zypper"):
-                call("sudo zypper install -y {}".format(pkg), shell=True)
+                call(f"sudo zypper install -y {pkg}", shell=True)
             elif "Linux" in platform.system():
                 if "debian" in platform.uname() or "ubuntu" in platform.uname():
-                    call("sudo apt-get install -y {}".format(pkg), shell=True)
+                    call(f"sudo apt-get install -y {pkg}", shell=True)
             else:
                 print("[-] we dont support this OS atm")
 
