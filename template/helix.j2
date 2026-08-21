@@ -9,8 +9,10 @@ line-number = "relative"
 mouse = true
 shell = ["zsh"]
 auto-format = true
+{% if ansible_distribution == "MacOSX" %}
 trim-trailing-whitespace = true
 trim-final-newlines = true
+{% endif %}
 color-modes = true
 indent-heuristic = "hybrid"
 
