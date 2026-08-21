@@ -51,6 +51,18 @@
         update_cache: true
       when: ansible_os_family == "RedHat"
 
+    - name: create helix folder under dot config directory
+      become: false
+      file:
+        path: ~/.config/helix
+        state: directory
+        mode: "0755"
+      when: ansible_os_family == "Debian" or
+        ansible_distribution == "MacOSX" or
+        ansible_os_family == "Suse" or
+        ansible_os_family == "FreeBSD" or
+        ansible_os_family == "RedHat"
+
     - name: Place configuration toml file for helix
       become: false
       template:

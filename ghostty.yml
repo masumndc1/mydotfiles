@@ -31,6 +31,15 @@
         update_cache: true
       when: ansible_os_family == "Suse"
 
+    - name: create ghostty folder under dot config directory
+      become: false
+      file:
+        path: ~/.config/ghostty
+        state: directory
+        mode: "0755"
+      when: ansible_os_family == "Debian" or
+        ansible_os_family == "Suse"
+
     - name: Place configuration file for ghostty
       become: false
       template:
