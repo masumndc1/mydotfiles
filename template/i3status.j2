@@ -16,17 +16,26 @@ wireless _first_ {
 {% if ansible_distribution == "FreeBSD" %}
         format_up = "📶 %essid %ip"
 {% elif ansible_distribution == "Linux" %}
-        format_up = "📶 %essid (%quality)"
+        format_up = "📶 (%quality at %essid) %ip | ▼ %rx | ▲ %tx"
 {% endif %}
         format_down = "📶 down"
 }
 
 ethernet _first_ {
+{% if ansible_distribution == "FreeBSD" %}
         format_up = "🌐 %ip"
+{% elif ansible_distribution == "Linux" %}
+        format_up = "🌐 %ip (%speed) | ▼ %rx | ▲ %tx"
+{% endif %}
         format_down = "🌐 down"
 }
+
 cpu_usage {
+{% if ansible_distribution == "FreeBSD" %}
+        format = "U: %usage"
+{% elif ansible_distribution == "Linux" %}
         format = "📊 %usage"
+{% endif %}
 }
 
 cpu_temperature 0 {
