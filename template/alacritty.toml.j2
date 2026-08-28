@@ -27,6 +27,8 @@ TERM = "xterm-256color"
 [font]
 {% if ansible_hostname == "aair13-2QD1WG7" %}
 size = 17.0
+{% elif ansible_system == "FreeBSD" %}
+size = 10.0
 {% else %}
 size = 18.0
 {% endif %}
@@ -34,10 +36,6 @@ size = 18.0
 [font.bold]
 family = "TerminessTTF Nerd Font"
 style = "Bold"
-
-[font.glyph_offset]
-x = 0
-y = 1
 
 [font.italic]
 family = "TerminessTTF Nerd Font"
@@ -50,6 +48,10 @@ style = "Medium"
 [font.offset]
 x = 0
 y = 0
+
+[font.glyph_offset]
+x = 0
+y = 1
 
 [mouse]
 hide_when_typing = true
@@ -66,9 +68,11 @@ multiplier = 3
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
+{% if ansible_system == "Linux" %}
 [terminal.shell]
 args = ["--login"]
 program = "/bin/zsh"
+{% endif %}
 
 [window]
 {% if ansible_system == "Linux" %}
@@ -78,6 +82,7 @@ decorations = "buttonless"
 {% endif %}
 dynamic_padding = true
 opacity = 1.0
+# blur = true
 startup_mode = "Windowed"
 
 [window.dimensions]
