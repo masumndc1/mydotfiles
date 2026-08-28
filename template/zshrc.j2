@@ -201,8 +201,22 @@ else
   python3 -m venv myenv
 fi
 
+{% if ansible_os_family == "FreeBSD" %}
+if [[ -d $HOME/.config/fzf ]]; then
+  if [[ -f ~/.config/fzf/key-bindings.zsh ]]; then
+    source ~/.config/fzf/key-bindings.zsh
+  else
+    curl -fLo ~/.config/fzf/key-bindings.zsh https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
+  fi
+else
+  mkdir -p ~/.config/fzf
+fi
+{% endif %}
+
 {% if ansible_architecture == "i386" %}
 alias fp="fzf --preview 'pygmentize -g {} | head -n 500 {}'"
+{% elif ansible_distribution == "Debian" %}
+alias fp="fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}'"
 {% else %}
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 {% endif %}
@@ -263,6 +277,7 @@ search() {
   [[ -n "$opened_file" ]] && echo "$opened_file"
 }
 
+{% if ansible_system == "Linux" %}
 {% if ansible_os_family == "Darwin" %}
 if [[ -f "$HOME/.local/bin/ohcrab" ]]; then
 {% else %}
@@ -271,6 +286,7 @@ if [[ -f "/usr/local/bin/ohcrab" ]]; then
 else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/luizvbo/oh-crab/main/install.sh)"
 fi
+{% endif %}
 {% endif %}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

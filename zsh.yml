@@ -1,8 +1,6 @@
 ---
 - hosts: localhost:compute:incus:laptops
   ignore_errors: true
-  vars:
-    the_user: "{{ ansible_user_id }}"
 
   tasks:
     - name: get infos of all installed packages
@@ -27,7 +25,7 @@
     - name: change user shell to zsh
       become: true
       user:
-        name: "{{ the_user }}"
+        name: "{{ username }}"
         shell: /usr/bin/zsh
       when: ( ansible_os_family != "Darwin"
         and ansible_os_family != "FreeBSD" )
@@ -36,7 +34,7 @@
     - name: change user shell to zsh in freebsd
       become: true
       user:
-        name: "{{ the_user }}"
+        name: "{{ username }}"
         shell: /usr/local/bin/zsh
       when: ansible_os_family == "FreeBSD"
         and ('zsh' in ansible_facts.packages )
