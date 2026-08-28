@@ -93,6 +93,7 @@ lap-asus
 lap-lenovo
 lap-macmini
 lap-thinkpad
+lap-freebsd ansible_python_interpreter=/usr/local/bin/python3
 
 [jumphosts]
 jumphost
