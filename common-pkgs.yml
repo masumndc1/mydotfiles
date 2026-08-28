@@ -49,20 +49,25 @@
             "zoxide",
             "tree-sitter",
             "tree-sitter-cli",
-            "gmake",
             "gcc",
             "git",
-            "lua-language-server",
             "lua51-luarocks",
             "fzf",
-            "py312-ruff",
+            "ruff",
             "stylua",
             "uv",
             "py312-ty",
             "python3",
+            "terminus-font",
+            "font-awesome",
+            "konsole",
+            "picom"
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
+      tags:
+        - pkg
+        - freebsd
 
     - name: Install common tools in Opensuse
       zypper:
