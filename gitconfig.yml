@@ -4,11 +4,19 @@
   gather_facts: yes
 
   tasks:
-    - name: Install git-delta package
+    - name: Install git-delta package in linux
       package:
         name: git-delta
         state: present
         update_cache: true
+      when: ansible_distribution == "Linux" or
+        ansible_distribution == "MacOSX"
+
+    - name: Install git-delta package in freebsd
+      pkgng:
+        name: git-delta
+        state: present
+      when: ansible_distribution == "FreeBSD"
 
     - name: Place gitconfig themes for delta
       become: false
