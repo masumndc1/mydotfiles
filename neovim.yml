@@ -9,11 +9,13 @@
       apt:
         name: [ 'unzip',
           'python3-venv',
-          'git'
+          'git',
+          'snapd'
           ]
         state: latest
         update_cache: yes
       when: ansible_distribution == "Ubuntu"
+        or ansible_distribution == "Debian"
 
     - name: remove any older verion of neovim
       apt:
@@ -71,3 +73,9 @@
         state: present
         selfupdate: true
       when: ansible_distribution == "MacOSX"
+
+    - name: Install neovim and git in freebsd
+      pkgng:
+        name: ['git', 'neovim']
+        state: present
+      when: ansible_os_family == "FreeBSD"

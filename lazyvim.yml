@@ -107,6 +107,7 @@
       tags:
         - debian
         - ubuntu
+        - freebsd
 
     - name: Do following after installing nvim and lazyvim
       become: false
