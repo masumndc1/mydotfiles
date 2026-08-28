@@ -27,8 +27,13 @@ cpu_usage {
 
 cpu_temperature 0 {
         format = "🌡️ %degrees °C"
+{% if ansible_distribution == "Linux" %}
         path = "/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input"
+{% elif ansible_distribution == "FreeBSD" %}
+        path = "dev.cpu.0.temperature"
+{% endif %}
 }
+
 memory {
         format = "🧠 %used / %available"
         threshold_degraded = "1G"
@@ -67,4 +72,3 @@ general {
         color_degraded = "#CB4B16"  # Orange for warning thresholds
         color_bad = "#DC322F"       # Red for critical alerts
 }
-

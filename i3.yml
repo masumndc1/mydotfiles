@@ -89,6 +89,8 @@
             "lua54",
             "i3status",
             "dmenu",
+            "rofi",
+            "firefox-esr",
             "python3",
           ]
         state: present
@@ -162,3 +164,13 @@
         mode: "0644"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
+
+    - name: Configure .xinitrc for user
+      become: false
+      ansible.builtin.copy:
+        dest: "/home/{{ ansible_user }}/.xinitrc"
+        content: "exec i3\n"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+      when: ansible_os_family == "FreeBSD"
