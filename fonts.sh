@@ -7,3 +7,8 @@ if [[ $(uname) == "Linux" ]]; then
   echo -n "run this as root user"
   cp fonts/Terminus/*.ttf /usr/share/fonts
 fi
+
+elif [[ $(uname) == "FreeBSD" ]]; then
+  echo -n "run this as root user"
+  cp fonts/Terminus/*.ttf /usr/local/share/fonts
+fi
