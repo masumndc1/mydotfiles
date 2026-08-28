@@ -31,6 +31,12 @@
         update_cache: true
       when: ansible_os_family == "Suse"
 
+    - name: Install ghostty in freebsd
+      pkgng:
+        name: ["ghostty"]
+        state: present
+      when: ansible_os_family == "FreeBSD"
+
     - name: create ghostty folder under dot config directory
       become: false
       file:
@@ -38,7 +44,8 @@
         state: directory
         mode: "0755"
       when: ansible_os_family == "Debian" or
-        ansible_os_family == "Suse"
+        ansible_os_family == "Suse" or
+        ansible_os_family == "FreeBSD"
 
     - name: Place configuration file for ghostty
       become: false
@@ -47,4 +54,5 @@
         dest: ~/.config/ghostty/config
         mode: "0644"
       when: ansible_distribution == "Debian" or
-            ansible_os_family == "Suse"
+        ansible_os_family == "Suse" or
+        ansible_os_family == "FreeBSD"
