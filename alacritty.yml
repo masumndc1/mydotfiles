@@ -11,6 +11,12 @@
         update_cache: true
       when: ansible_os_family == "SUSE"
 
+    - name: Install alacritty terminal in freebsd
+      pkgng:
+        name: ["alacritty"]
+        state: present
+      when: ansible_os_family == "FreeBSD"
+
     - name: Install alacritty terminal
       apt:
         name: ["alacritty"]
