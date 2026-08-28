@@ -1,0 +1,65 @@
+---
+- hosts: lap-freebsd
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install required FreeBSD packages
+      community.general.pkgng:
+        name:
+          - drm-kmod
+          - graphics/gpu-firmware-kmod
+          - termcolor
+        state: present
+
+    - name: Ensure GPU groups exist
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - video
+        - render
+
+    - name: Add user to video and render groups
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        append: true
+        groups:
+          - video
+          - render
+
+    - name: Configure system services and modules in /etc/rc.conf
+      community.general.sysrc:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        state: present
+      loop:
+        - { key: 'kld_list', value: 'i915kms' }
+        - { key: 'powerd_flags', value: '-a adaptive -b adaptive' }
+        - { key: 'sound_load', value: 'YES' }
+
+    - name: Configure sysctl settings for TrackPoint and usermount
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_file: /etc/sysctl.conf
+        state: present
+        reload: true
+      loop:
+        - { key: 'vfs.usermount', value: '1' }
+        - { key: 'hw.psm.trackpoint_support', value: '1' }
+
+    - name: Enable Intel CPU temperature driver in /boot/loader.conf
+      ansible.builtin.lineinfile:
+        path: /boot/loader.conf
+        regexp: '^coretemp_load='
+        line: 'coretemp_load="YES"'
+        create: true
+        owner: root
+        group: wheel
+        mode: '0644'
+
+    - name: Immediately load coretemp module if not loaded
+      community.general.kld:
+        name: coretemp
+        state: present
