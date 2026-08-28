@@ -1,0 +1,19 @@
+---
+- hosts: lap-freebsd
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install xterm
+      pkgng:
+        name: xterm
+        state: present
+      when: ansible_os_family == "FreeBSD"
+
+    - name: Place xresources file
+      become: false
+      template:
+        src: template/xresources.j2
+        dest: ~/.Xresources
+        mode: '644'
+      when: ansible_os_family == "FreeBSD"
