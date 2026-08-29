@@ -202,6 +202,15 @@ else
 fi
 
 {% if ansible_os_family == "FreeBSD" %}
+
+if [[ ! -f /usr/local/bin/lsd ]]; then
+  sudo pkg install -y lsd
+else
+  alias ll="lsd -l"
+  alias ls="lsd --icon always"
+  alias lt="lsd --tree -a -I '.git|__pycache__|.mypy_cache|.ipynb_checkpoints'"
+fi
+
 if [[ -d $HOME/.config/fzf ]]; then
   if [[ -f ~/.config/fzf/key-bindings.zsh ]]; then
     source ~/.config/fzf/key-bindings.zsh
