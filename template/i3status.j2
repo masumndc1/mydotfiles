@@ -13,7 +13,11 @@ disk "/" {
 }
 
 wireless _first_ {
+{% if ansible_distribution == "FreeBSD" %}
+        format_up = "📶 %essid %ip"
+{% elif ansible_distribution == "Linux" %}
         format_up = "📶 %essid (%quality)"
+{% endif %}
         format_down = "📶 down"
 }
 
