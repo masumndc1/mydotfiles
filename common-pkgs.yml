@@ -62,6 +62,8 @@
             "font-awesome",
             "konsole",
             "py312-ansible",
+            "yazi",
+            "tig",
             "nerd-fonts-jetbrainsmono"
           ]
         state: present
