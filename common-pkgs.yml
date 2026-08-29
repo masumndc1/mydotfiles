@@ -61,7 +61,8 @@
             "terminus-font",
             "font-awesome",
             "konsole",
-            "py312-ansible"
+            "py312-ansible",
+            "nerd-fonts-jetbrainsmono"
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
