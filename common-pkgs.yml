@@ -61,7 +61,7 @@
             "terminus-font",
             "font-awesome",
             "konsole",
-            "picom"
+            "py312-ansible"
           ]
         state: present
       when: ansible_distribution == "FreeBSD"
