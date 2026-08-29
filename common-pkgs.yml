@@ -64,6 +64,7 @@
             "py312-ansible",
             "yazi",
             "tig",
+            "bhyve",
             "x11-fonts/noto-sans-bengali",
             "x11-fonts/noto-serif-bengali",
             "nerd-fonts-jetbrainsmono"
