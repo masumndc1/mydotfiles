@@ -37,6 +37,10 @@
         - { key: 'kld_list', value: 'i915kms' }
         - { key: 'powerd_flags', value: '-a adaptive -b adaptive' }
         - { key: 'sound_load', value: 'YES' }
+        - { key: 'pf_enable', value: 'YES' }
+        - { key: 'gateway_enable', value: 'YES' }
+        - { key: 'vm_enable', value: 'YES' }
+        - { key: 'vm_dir', value: '/zroot/vm' }
 
     - name: Configure sysctl settings for TrackPoint and usermount
       ansible.posix.sysctl:
