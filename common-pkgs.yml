@@ -68,6 +68,7 @@
             "bhyve-rc",
             "bhyvemgr-qt5",
             "vm-bhyve",
+            "drm-kmod",
             "x11-fonts/noto-sans-bengali",
             "x11-fonts/noto-serif-bengali",
             "nerd-fonts-jetbrainsmono"
