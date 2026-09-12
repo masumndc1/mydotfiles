@@ -19,6 +19,13 @@ font pango:monospace 8
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
+# Turn off the monitor after 10 minutes (600 seconds) of inactivity
+# requires xautolock to be installed.
+exec_always --no-startup-id xset dpms 600 600 600
+
+# Forcefully kill the X session / log out after 10 minutes (600 seconds) of inactivity
+exec --no-startup-id xautolock -time 10 -locker "pkill -KILL -u $USER"
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
