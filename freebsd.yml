@@ -1,5 +1,5 @@
 ---
-- hosts: lap-freebsd
+- hosts: laptops:localhost
   become: true
   gather_facts: true
 
@@ -62,8 +62,3 @@
         owner: root
         group: wheel
         mode: '0644'
-
-    - name: Immediately load coretemp module if not loaded
-      community.general.kld:
-        name: coretemp
-        state: present
