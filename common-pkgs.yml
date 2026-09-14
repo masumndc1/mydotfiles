@@ -70,7 +70,7 @@
             "vm-bhyve",
             "drm-kmod",
             "dmidecode",
-            "xautolock",
+            # "xautolock",
             "x11-fonts/noto-sans-bengali",
             "x11-fonts/noto-serif-bengali",
             "lua-language-server",
