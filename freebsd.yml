@@ -7,6 +7,10 @@
     - name: Install required FreeBSD packages
       community.general.pkgng:
         name:
+          - gpu-firmware-kmod
+          - wifi-firmware-kmod
+          - drm-515-kmod
+          - alsa-utils
           - drm-kmod
           - graphics/gpu-firmware-kmod
           - termcolor
@@ -34,6 +38,7 @@
         value: "{{ item.value }}"
         state: present
       loop:
+        - { key: 'powerd_enable', value: 'YES' }
         - { key: 'kld_list', value: 'i915kms' }
         - { key: 'powerd_flags', value: '-a adaptive -b adaptive' }
         - { key: 'sound_load', value: 'YES' }
@@ -62,3 +67,9 @@
         owner: root
         group: wheel
         mode: '0644'
+
+    - name: Ensure powerd service is running
+      ansible.builtin.service:
+        name: powerd
+        state: started
+        enabled: true
