@@ -1,0 +1,61 @@
+---
+- hosts: laptops
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install non-free firmware in debian family
+      apt:
+        name:
+          [
+            "firmware-linux-nonfree",
+            "intel-microcode",
+            "firmware-iwlwifi",
+            "firmware-misc-nonfree",
+          ]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Install alsamixer for sound in debian
+      apt:
+        name: [ 'alsa-utils' ]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Install tools for bettery and trackpad for thinkpad
+      apt:
+        name:
+          [
+            "tlp",
+            "fwupd",
+            "tlp-rdw",
+            "tp-smapi-dkms",
+            "acpi-call-dkms",
+            "xserver-xorg-input-libinput",
+          ]
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: set settings for tlp
+      blockinfile:
+        path: /etc/tlp.conf
+        block: |
+          START_CHARGE_THRESH_BAT0=75
+          STOP_CHARGE_THRESH_BAT0=80
+          START_CHARGE_THRESH_BAT1=75
+          STOP_CHARGE_THRESH_BAT1=80
+      when: ansible_os_family == "Debian"
+
+    - name: run tlp service
+      service:
+        name: tlp
+        state: started
+        enabled: true
+      when: ansible_os_family == "Debian"
+
+    - name: run following for firmware update
+      debug:
+        msg: now run fwupdmgr refresh, fwupdmgr get-updates, fwupdmgr update
