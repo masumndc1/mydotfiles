@@ -93,6 +93,7 @@ lap-asus
 lap-lenovo
 lap-macmini
 lap-thinkpad
+lap-t460s
 lap-thinkcenter
 lap-freebsd ansible_python_interpreter=/usr/local/bin/python3
 
