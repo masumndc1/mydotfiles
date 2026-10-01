@@ -70,6 +70,7 @@
             "vm-bhyve",
             "drm-kmod",
             "dmidecode",
+            "mesa-demos",
             # "xautolock",
             "x11-fonts/noto-sans-bengali",
             "x11-fonts/noto-serif-bengali",
