@@ -116,7 +116,7 @@
             "xclip",
             "xsel",
             "firmware-brcm80211",
-
+            "lm-sensors",
           ]
         state: present
         update_cache: yes
