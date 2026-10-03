@@ -95,6 +95,7 @@
             "ripgrep",
             "git",
             "lazygit",
+            "kernel-firmware-bluetooth",
           ]
         state: present
         update_cache: yes
@@ -114,6 +115,8 @@
             "python-dev-is-python3",
             "xclip",
             "xsel",
+            "firmware-brcm80211",
+
           ]
         state: present
         update_cache: yes
